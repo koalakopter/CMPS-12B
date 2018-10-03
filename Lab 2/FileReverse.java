@@ -33,36 +33,45 @@ class FileReverse {
 		         System.out.println("Usage: java –jar FileTokens.jar <input file> <output file>");
 		         System.exit(1);
 		      }
-		      /*
 		      // open files
 		      Scanner in = new Scanner(new File(args[0]));
 		      PrintWriter out = new PrintWriter(new FileWriter(args[1]));
 
+		     
 		      // read lines from in, extract and print tokens from each line
 		      while( in.hasNextLine() ){
-		         lineNumber++;
+		         //lineNumber++; //what does this even do
 
 		         // trim leading and trailing spaces, then add one trailing space so 
 		         // split works on blank lines
-		         String line = in.nextLine().trim() + " "; 
+		         String line = in.nextLine().trim() + " ";  
 
 		         // split line around white space 
-		         String[] token = line.split("\\s+");  
-
+		         String[] token = line.split("\\s+"); 
+		      
 		         //print out tokens       
 		         int n = token.length;
+		         for(int x = 0; x < token.length; x++)
+		         {
+		        	 //reverse each string token
+		        	 token[x] = stringReverse(token[x]);
+		         }
 		         //out.println("Line " + lineNumber + " contains " + n + " tokens:");
 		         for(int i=0; i<n; i++){
-		            out.println("  "+token[i] + n);
+		          // while(token.charAt(i) != " ");
+		        	out.println("" + token[i]);
 		         }
+
 		      }
 			  // close files
 		      in.close();
-		      out.close();
-		      */
+		      out.close(); 
+		      
+		      /*
 		      String fun = "this is fun";
 		      fun = stringReverse(fun);
 		      System.out.println(fun);
+		      */
 		   }
 		}
 
