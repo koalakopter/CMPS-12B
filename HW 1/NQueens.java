@@ -53,6 +53,28 @@ public class NQueens {
 		//if no attacks found, return true
 		return true;
 	}
+	
+	//place Queen recursive function that takes in a board array that keeps track of queens
+	//and a row/col tracker integer
+	public boolean placeQueen(int board[][], int row, int col, int size)
+	{
+		//i = rows
+		for(int i = 1; i < size; i++)
+		{
+			//place a queen
+			board[i][col] = 1;
+			//check the placement
+			if(safe(i, col, board, size) == true)
+			{
+				//if true; make recursive call
+				placeQueen(board, row, col+1, size);
+			}
+			else {
+				
+			}
+		}
+		return true; //if success, returns true
+	}
 
 	public static void main(String[] args) throws IOException {
 
