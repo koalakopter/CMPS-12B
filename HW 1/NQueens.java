@@ -13,42 +13,44 @@ public class NQueens {
 	// representing the board
 	// also takes in the size of the board
 	public static boolean safe(int x, int y, int board[][], int size) {
-		//System.out.println("meme");
+		System.out.println("meme");
 
 		// a is the column(x), b is the row(y)
 		// checks for horizontal attacks
 		for (int a = 0; a < size; a++) {
+			System.out.println(x + ", " + a);
 			// returns false if something else is in the row
 			if (board[x][a] != 0) {
 				return false;
 			}
 		}
 		// check diagonal attacks
+		System.out.println("diagonals");
 		
 		// check the top-left diagonal
 		// loop stops if it hits the top or side of the board first
-		for (int a = x, b = y; a < 0 && b > size; a--, b++) {
+		for (int a = x, b = y; a > 0 && b < size; a--, b++) {
 			System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the top-right diagonal
-		for (int a = x, b = y; a > size && b > size; a++, b++) {
+		for (int a = x, b = y; a < size && b < size; a++, b++) {
 			System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the bot-left diagonal
-		for (int a = x, b = y; a < 0 && b < 0; a--, b--) {
+		for (int a = x, b = y; a > 0 && b > 0; a--, b--) {
 			System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the bot-right diagonal
-		for (int a = x, b = y; a > size && b < 0; a++, b--) {
+		for (int a = x, b = y; a < size && b > 0; a++, b--) {
 			System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
@@ -56,6 +58,7 @@ public class NQueens {
 		}
 		
 		//if no attacks found, return true
+		System.out.println("pass");
 		return true;
 	}
 	
@@ -97,13 +100,13 @@ public class NQueens {
 			System.exit(1);
 		}*/
 		//testing
-		int[][] board = new int[][] {{0, 1, 0}, {0, 0, 0}, {0, 0, 0}};
+		int[][] board = new int[][] {{0, 0, 0}, {0, 0, 0}, {0, 1, 0}};
 		
 		//board looks like this
-		// 0 0 0
-		// 0 0 0
 		// 0 1 0
-		System.out.println("" + board[0][1]);
+		// 0 0 0
+		// 0 0 0
+		System.out.println("" + board[2][1]);
 		boolean koala = safe(1, 0, board, 3);
 		System.out.println("" + koala);
 		
