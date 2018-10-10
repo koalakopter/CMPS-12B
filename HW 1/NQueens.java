@@ -13,52 +13,52 @@ public class NQueens {
 	// representing the board
 	// also takes in the size of the board
 	public static boolean safe(int x, int y, int board[][], int size) {
-		System.out.println("meme");
+		//System.out.println("meme");
 
 		// a is the column(x), b is the row(y)
 		// checks for horizontal attacks
 		for (int a = 0; a < size; a++) {
-			System.out.println(x + ", " + a);
+			//System.out.println(x + ", " + a);
 			// returns false if something else is in the row
 			if (board[x][a] != 0) {
 				return false;
 			}
 		}
 		// check diagonal attacks
-		System.out.println("diagonals");
+		//System.out.println("diagonals");
 		
 		// check the top-left diagonal
 		// loop stops if it hits the top or side of the board first
 		for (int a = x, b = y; a > 0 && b < size; a--, b++) {
-			System.out.println(a + ", "  +b);
+			//System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the top-right diagonal
 		for (int a = x, b = y; a < size && b < size; a++, b++) {
-			System.out.println(a + ", "  +b);
+			//System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the bot-left diagonal
 		for (int a = x, b = y; a > 0 && b > 0; a--, b--) {
-			System.out.println(a + ", "  +b);
+			//System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		//check the bot-right diagonal
 		for (int a = x, b = y; a < size && b > 0; a++, b--) {
-			System.out.println(a + ", "  +b);
+			//System.out.println(a + ", "  +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		
 		//if no attacks found, return true
-		System.out.println("pass");
+		//System.out.println("pass");
 		return true;
 	}
 	
@@ -66,6 +66,7 @@ public class NQueens {
 	//and a row/col tracker integer
 	public static boolean placeQueen(int board[][], int row, int col, int size)
 	{
+		int[][] tempBoard = new int[size][size];
 		//end case (if all columns are filled)
 		if(col > size)
 		{
@@ -74,19 +75,21 @@ public class NQueens {
 		//i = rows
 		for(int i = 1; i < size; i++)
 		{
-			//place a queen
-			board[i][col] = 1;
-			//check the placement
+			System.out.println(i + ", " + col);
+			//check the placement of a queen in a theoretical spot
 			if(safe(i, col, board, size) == true)
 			{
+				//place the queen in a copy of board just in case we need to backtrack...
+				tempBoard = board;
+				tempBoard[i][col] = 1;
 				//if true; make recursive call
 				placeQueen(board, row, col+1, size);
 			}
 			else {
-				
+				//no queen can be placed so...? move on
 			}
 		}
-		//if no queen can be placed
+		//if no queen can be placed in a column
 		return false;
 	}
 
@@ -99,6 +102,7 @@ public class NQueens {
 			System.out.println("Usage: java -jar NQueens.jar <input file> <output file>");
 			System.exit(1);
 		}*/
+		/*
 		//testing
 		int[][] board = new int[][] {{0, 0, 0}, {0, 0, 0}, {0, 1, 0}};
 		
@@ -109,6 +113,21 @@ public class NQueens {
 		System.out.println("" + board[2][1]);
 		boolean koala = safe(1, 0, board, 3);
 		System.out.println("" + koala);
+		*/
+		int size = 6;
+		int[][] board = new int[size][size];
+		//starts at row 0
+		placeQueen(board, 0, 0, size);
+		
+		//prints out 2d array for visual aid
+		for(int i = 0; i<size; i++)
+		{
+		    for(int j = 0; j<size; j++)
+		    {
+		        System.out.print(board[i][j] + " ");
+		    }
+		    System.out.println();
+		}
 		
 	}
 }
