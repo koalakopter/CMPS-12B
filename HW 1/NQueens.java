@@ -30,7 +30,7 @@ public class NQueens {
 
 		// check the top-left diagonal
 		// loop stops if it hits the top or side of the board first
-		for (int a = x, b = y; a >= 0 && b < size; a--, b++) {
+		for (int a = x, b = y; a > -1 && b < size; a--, b++) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
@@ -44,14 +44,14 @@ public class NQueens {
 			}
 		}
 		// check the bot-left diagonal
-		for (int a = x, b = y; a >= 0 && b >= 0; a--, b--) {
+		for (int a = x, b = y; a > -1 && b > -1; a--, b--) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		// check the bot-right diagonal
-		for (int a = x, b = y; a < size && b >= 0; a++, b--) {
+		for (int a = x, b = y; a < size && b > -1; a++, b--) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
@@ -67,24 +67,23 @@ public class NQueens {
 	// of queens
 	// with a column tracker, and an input for the already placed queen
 	public static boolean placeQueen(int board[][], int placedCol, int col, int size) {
-		//int[][] tempBoard = new int[size][size];
+		// int[][] tempBoard = new int[size][size];
 		// end case (if all columns are filled)
 		if (col >= size) {
 			return true;
 		}
-		//ignores placing a queen in the column with the pre-placed queen
-		if (col == placedCol)
-		{
-			col = col+1;
+		// ignores placing a queen in the column with the pre-placed queen
+		if (col == placedCol) {
+			col = col + 1;
 		}
 		// i = rows
 		for (int i = 0; i < size; i++) {
 			System.out.println(i + ", " + col);
-			
+
 			// check the placement of a queen in a theoretical spot
 			if (safe(i, col, board, size) == true) {
 				// place the queen in a copy of board just in case we need to backtrack...
-				//tempBoard = board;
+				// tempBoard = board;
 				board[i][col] = 1;
 				// if true; make recursive call
 				if (placeQueen(board, placedCol, col + 1, size) == true) {
@@ -103,31 +102,51 @@ public class NQueens {
 		int lineNumber = 0;
 
 		// check number of command line arguments is at least 2
-		/*
-		 * if (args.length < 2) {
-		 * System.out.println("Usage: java -jar NQueens.jar <input file> <output file>"
-		 * ); System.exit(1); }
-		 */
-		/*
-		 * //testing int[][] board = new int[][] {{0, 0, 0}, {0, 0, 0}, {0, 1, 0}};
-		 * 
-		 * //board looks like this // 0 1 0 // 0 0 0 // 0 0 0 System.out.println("" +
-		 * board[2][1]); boolean koala = safe(1, 0, board, 3); System.out.println("" +
-		 * koala);
-		 */
-		int size = 4;
-		int[][] board = new int[size][size];
-		board[0][1] = 1; //preplaced queen
-		// starts at row 0
-		placeQueen(board, 1, 0, size);
 
-		// prints out 2d array for visual aid
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				System.out.print(board[i][j] + " ");
-			}
-			System.out.println();
+		if (args.length < 2) {
+			System.out.println("Usage: java -jar NQueens.jar <input file> <output file>");
+			System.exit(1);
 		}
+
+		// Copied from Lab 2
+		// open files
+		Scanner in = new Scanner(new File(args[0]));
+		PrintWriter out = new PrintWriter(new FileWriter(args[1]));
+
+		int f = 0;
+		boolean koala = true;
+		// read lines from in, extract and print tokens from each line
+		while (in.hasNextLine()) {
+			// lineNumber++; //what does this even do
+
+			// trim leading and trailing spaces, then add one trailing space so
+			// split works on blank lines
+			String line = in.nextLine().trim() + " ";
+
+			// split line around white space
+			String[] token = line.split("\\s+");
+
+			int n = token.length;
+
+			
+			for (int i = 0; i < n; i++) {
+				// while(token.charAt(i) != " ");
+				System.out.println("" + token[i]);
+				if (koala) {
+					f = Integer.parseInt(token[i+1]);
+					koala = false;
+				}
+			}
+		}
+		System.out.println("help plz" + f);
+		/*
+		 * int size = 8; int[][] board = new int[size][size]; board[0][3] = 1;
+		 * //preplaced queen // starts at row 0 placeQueen(board, 3, 0, size);
+		 * 
+		 * // prints out 2d array for visual aid for (int i = 0; i < size; i++) { for
+		 * (int j = 0; j < size; j++) { System.out.print(board[i][j] + " "); }
+		 * System.out.println(); }
+		 */
 
 	}
 }
