@@ -78,7 +78,7 @@ public class NQueens {
 		}
 		// i = rows
 		for (int i = 0; i < size; i++) {
-			System.out.println(i + ", " + col);
+			//System.out.println(i + ", " + col);
 
 			// check the placement of a queen in a theoretical spot
 			if (safe(i, col, board, size) == true) {
@@ -96,6 +96,23 @@ public class NQueens {
 		// if no queen can be placed in a column
 		return false;
 	}
+	
+	//helper function that stores a local board and prints results from parsed strings
+	//to be used with placeQueen function
+	static void findSolution(int n, int row, int col)
+	{
+		//creates a 2D Array/Board of size n
+		int[][] board = new int[n][n];
+		board[row][col] = 1; //pre-placed queen
+		
+		//tests if there is a solution to the NQueens problem w/ given input
+		boolean solution = placeQueen(board, col, 0,  n);
+		if (solution == false)
+		{
+			System.out.println("No Solution");
+		}
+	}
+	
 
 	public static void main(String[] args) throws IOException {
 
@@ -131,7 +148,7 @@ public class NQueens {
 			
 			for (int i = 0; i < n; i++) {
 				// while(token.charAt(i) != " ");
-				System.out.println("" + token[i]);
+				//System.out.println("" + token[i]);
 				if (koala) {
 					f = Integer.parseInt(token[i+1]);
 					koala = false;
@@ -139,13 +156,24 @@ public class NQueens {
 			}
 		}
 		System.out.println("help plz" + f);
+		findSolution(3, 0, 0);
 		/*
-		 * int size = 8; int[][] board = new int[size][size]; board[0][3] = 1;
-		 * //preplaced queen // starts at row 0 placeQueen(board, 3, 0, size);
+		 * int size = 8; 
+		 * int[][] board = new int[size][size]; 
+		 * board[0][3] = 1;
+		 * //preplaced queen 
+		 * // starts at row 0 
+		 * placeQueen(board, 3, 0, size);
 		 * 
-		 * // prints out 2d array for visual aid for (int i = 0; i < size; i++) { for
-		 * (int j = 0; j < size; j++) { System.out.print(board[i][j] + " "); }
-		 * System.out.println(); }
+		 * // prints out 2d array for visual aid 
+		 * for (int i = 0; i < size; i++) 
+		 * { 
+		 * 	for (int j = 0; j < size; j++) 
+		 * 	{ 
+		 * 	System.out.print(board[i][j] + " "); 
+		 * 	}
+		 * 	System.out.println(); 
+		 * }
 		 */
 
 	}
