@@ -30,7 +30,7 @@ public class NQueens {
 
 		// check the top-left diagonal
 		// loop stops if it hits the top or side of the board first
-		for (int a = x, b = y; a > 0 && b < size; a--, b++) {
+		for (int a = x, b = y; a >= 0 && b < size; a--, b++) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
@@ -44,14 +44,14 @@ public class NQueens {
 			}
 		}
 		// check the bot-left diagonal
-		for (int a = x, b = y; a > 0 && b > 0; a--, b--) {
+		for (int a = x, b = y; a >= 0 && b >= 0; a--, b--) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
 			}
 		}
 		// check the bot-right diagonal
-		for (int a = x, b = y; a < size && b > 0; a++, b--) {
+		for (int a = x, b = y; a < size && b >= 0; a++, b--) {
 			// System.out.println(a + ", " +b);
 			if (board[a][b] != 0) {
 				return false;
@@ -65,23 +65,29 @@ public class NQueens {
 
 	// place Queen recursive function that takes in a board array that keeps track
 	// of queens
-	// and a row/col tracker integer
-	public static boolean placeQueen(int board[][], int row, int col, int size) {
+	// with a column tracker, and an input for the already placed queen
+	public static boolean placeQueen(int board[][], int placedCol, int col, int size) {
 		//int[][] tempBoard = new int[size][size];
 		// end case (if all columns are filled)
 		if (col >= size) {
 			return true;
 		}
+		//ignores placing a queen in the column with the pre-placed queen
+		if (col == placedCol)
+		{
+			col = col+1;
+		}
 		// i = rows
 		for (int i = 0; i < size; i++) {
 			System.out.println(i + ", " + col);
+			
 			// check the placement of a queen in a theoretical spot
 			if (safe(i, col, board, size) == true) {
 				// place the queen in a copy of board just in case we need to backtrack...
 				//tempBoard = board;
 				board[i][col] = 1;
 				// if true; make recursive call
-				if (placeQueen(board, row, col + 1, size) == true) {
+				if (placeQueen(board, placedCol, col + 1, size) == true) {
 					return true;
 				}
 				// no queen can be placed so...? remove that queen
@@ -111,8 +117,9 @@ public class NQueens {
 		 */
 		int size = 4;
 		int[][] board = new int[size][size];
+		board[0][1] = 1; //preplaced queen
 		// starts at row 0
-		placeQueen(board, 0, 0, size);
+		placeQueen(board, 1, 0, size);
 
 		// prints out 2d array for visual aid
 		for (int i = 0; i < size; i++) {
