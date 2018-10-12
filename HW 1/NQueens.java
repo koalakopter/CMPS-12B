@@ -119,7 +119,8 @@ public class NQueens {
 		// tests if there is a solution to the NQueens problem w/ given input
 		boolean solution = placeQueen(board, col, 0, n);
 		if (solution == false) {
-			out.print("No Solution");
+			answer = "No solution";
+			return answer;
 		} else {
 			// if there is a solution, print out the results from col 1->N
 
@@ -180,7 +181,7 @@ public class NQueens {
 					x = 0;
 					// if 3 values have been read in, find a solution
 					// size, col, row
-					System.out.println(findSolution(parse[0], parse[1], parse[2]));
+					out.println(findSolution(parse[0], parse[1], parse[2]));
 				}
 			}
 		}
