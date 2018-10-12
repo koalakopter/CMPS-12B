@@ -78,7 +78,7 @@ public class NQueens {
 		}
 		// i = rows
 		for (int i = 0; i < size; i++) {
-			//System.out.println(i + ", " + col);
+			// System.out.println(i + ", " + col);
 
 			// check the placement of a queen in a theoretical spot
 			if (safe(i, col, board, size) == true) {
@@ -96,23 +96,37 @@ public class NQueens {
 		// if no queen can be placed in a column
 		return false;
 	}
-	
-	//helper function that stores a local board and prints results from parsed strings
-	//to be used with placeQueen function
-	static void findSolution(int n, int row, int col)
-	{
-		//creates a 2D Array/Board of size n
+
+	// helper function that stores a local board and prints results from parsed
+	// strings
+	// to be used with placeQueen function
+	static void findSolution(int n, int row, int col) {
+		// creates a 2D Array/Board of size n
 		int[][] board = new int[n][n];
-		board[row][col] = 1; //pre-placed queen
-		
-		//tests if there is a solution to the NQueens problem w/ given input
-		boolean solution = placeQueen(board, col, 0,  n);
-		if (solution == false)
-		{
+
+		// subtract one from row/col since arrays start at 0
+		row--;
+		col--;
+		board[row][col] = 1; // pre-placed queen
+
+		// tests if there is a solution to the NQueens problem w/ given input
+		boolean solution = placeQueen(board, col, 0, n);
+		if (solution == false) {
 			System.out.println("No Solution");
+		} else {
+			// if there is a solution, print out the results from col 1->N
+
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if (board[i][j] == 1) {
+						// its +1 for all results since arrays start at 0
+						System.out.print((i + 1) + " " + (j + 1) + " ");
+					}
+				}
+			}
+			System.out.println(""); // new line to keep format correct
 		}
 	}
-	
 
 	public static void main(String[] args) throws IOException {
 
@@ -130,8 +144,10 @@ public class NQueens {
 		Scanner in = new Scanner(new File(args[0]));
 		PrintWriter out = new PrintWriter(new FileWriter(args[1]));
 
-		int f = 0;
-		boolean koala = true;
+		// array to store values from parsing
+		int parse[] = new int[3];
+		int x = 0;
+
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
 			// lineNumber++; //what does this even do
@@ -145,36 +161,33 @@ public class NQueens {
 
 			int n = token.length;
 
-			
 			for (int i = 0; i < n; i++) {
 				// while(token.charAt(i) != " ");
-				//System.out.println("" + token[i]);
-				if (koala) {
-					f = Integer.parseInt(token[i+1]);
-					koala = false;
+				// System.out.println("" + token[i]);
+				parse[x] = Integer.parseInt(token[i]);
+				//System.out.println("" + parse[x]);
+				x++;
+				if (x == 3) {
+					x = 0;
+					// if 3 values have been read in, find a solution
+					// size, col, row
+					findSolution(parse[0], parse[1], parse[2]);
 				}
 			}
 		}
-		System.out.println("help plz" + f);
-		findSolution(3, 0, 0);
-		/*
-		 * int size = 8; 
-		 * int[][] board = new int[size][size]; 
-		 * board[0][3] = 1;
-		 * //preplaced queen 
-		 * // starts at row 0 
-		 * placeQueen(board, 3, 0, size);
-		 * 
-		 * // prints out 2d array for visual aid 
-		 * for (int i = 0; i < size; i++) 
-		 * { 
-		 * 	for (int j = 0; j < size; j++) 
-		 * 	{ 
-		 * 	System.out.print(board[i][j] + " "); 
-		 * 	}
-		 * 	System.out.println(); 
-		 * }
-		 */
-
+		in.close();
+		out.close();
 	}
+	// System.out.println("help plz" + f);
+	// findSolution(7,3,2);
+	/*
+	 * int size = 8; int[][] board = new int[size][size]; board[0][3] = 1;
+	 * //preplaced queen // starts at row 0 placeQueen(board, 3, 0, size);
+	 * 
+	 * // prints out 2d array for visual aid for (int i = 0; i < size; i++) { for
+	 * (int j = 0; j < size; j++) { System.out.print(board[i][j] + " "); }
+	 * System.out.println(); }
+	 */
+	// close files
+
 }
