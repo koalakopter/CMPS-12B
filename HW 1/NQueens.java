@@ -1,9 +1,14 @@
-
 //Julian To / jcto@ucsc.edu
 //CMPS 12B
 //HW1: NQUEENS
 
+//What it does:
+//Taking an input of a text file, it takes in 3 numbers: size of chessboard, 
+//and the row and column of the first queen
+//It then outputs the results in an output file, in the format <
+
 import java.io.*;
+import static java.lang.System.out;
 import java.util.Scanner;
 
 //places queens from col 1 -> col N
@@ -100,7 +105,9 @@ public class NQueens {
 	// helper function that stores a local board and prints results from parsed
 	// strings
 	// to be used with placeQueen function
-	static void findSolution(int n, int row, int col) {
+	static String findSolution(int n, int row, int col) 
+	{
+		String answer = "";
 		// creates a 2D Array/Board of size n
 		int[][] board = new int[n][n];
 
@@ -112,7 +119,7 @@ public class NQueens {
 		// tests if there is a solution to the NQueens problem w/ given input
 		boolean solution = placeQueen(board, col, 0, n);
 		if (solution == false) {
-			System.out.println("No Solution");
+			out.print("No Solution");
 		} else {
 			// if there is a solution, print out the results from col 1->N
 
@@ -120,17 +127,18 @@ public class NQueens {
 				for (int j = 0; j < n; j++) {
 					if (board[i][j] == 1) {
 						// its +1 for all results since arrays start at 0
-						System.out.print((i + 1) + " " + (j + 1) + " ");
+						answer = (answer + (i + 1) + " " + (j + 1) + " ");
 					}
 				}
 			}
-			System.out.println(""); // new line to keep format correct
+			 // new line to keep format correct
 		}
+		return answer; //returns the solution
 	}
 
 	public static void main(String[] args) throws IOException {
 
-		int lineNumber = 0;
+		//int lineNumber = 0;
 
 		// check number of command line arguments is at least 2
 
@@ -146,6 +154,7 @@ public class NQueens {
 
 		// array to store values from parsing
 		int parse[] = new int[3];
+		int answer[] = new int[3];
 		int x = 0;
 
 		// read lines from in, extract and print tokens from each line
@@ -171,7 +180,7 @@ public class NQueens {
 					x = 0;
 					// if 3 values have been read in, find a solution
 					// size, col, row
-					findSolution(parse[0], parse[1], parse[2]);
+					System.out.println(findSolution(parse[0], parse[1], parse[2]));
 				}
 			}
 		}
