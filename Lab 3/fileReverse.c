@@ -12,14 +12,21 @@
 //takes in a String, then reverses it
 void stringReverse(char* s)
 {
-	//printf("yeahhh %s\n", s);
+	printf("yeahhh %s\n", s);
 	int size = sizeof(s);
 	char newString[size];
-	for(int i = 0, j = size; i < size; i++, j--)
+	for(int i = 0, j = size-1; i < size; i++, j--)
 	{
 		newString[j] = s[i];
+		//strcat(newString, s[j]);
 	}
-	printf("new String! %s", newString);
+	//printf("new String! %s", newString);
+	int x = 0;
+	while(x < size)
+	{
+		printf("%c", newString[x]);
+		x++;
+	}
 }
 
 int main(int argc, char* argv[]){
