@@ -190,29 +190,25 @@ class Knight extends Chesspiece {
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
-		//knights attack in an L pattern
-		//or 2 rows and 1 col OR 1 row and 2 col away
-		
-		//2 row 1 col attack 
-		if((this.row == (origin.row+2) ||(this.row == origin.row-2)) 
-			&& ((this.col == origin.col+1) || (this.col == origin.col - 1)))
-		{
+		// knights attack in an L pattern
+		// or 2 rows and 1 col OR 1 row and 2 col away
+
+		// 2 row 1 col attack
+		if ((this.row == (origin.row + 2) || (this.row == origin.row - 2))
+				&& ((this.col == origin.col + 1) || (this.col == origin.col - 1))) {
 			// if the piece is the opposite colour, return true
-			if (this.colour != origin.colour) 
-			{
+			if (this.colour != origin.colour) {
 				return true;
 			}
 		}
-		//2 col 1 row attack
-		if((this.col == (origin.col+2) ||(this.col == origin.col-2)) 
-				&& ((this.row == origin.row+1) || (this.row == origin.row - 1)))
-			{
-				// if the piece is the opposite colour, return true
-				if (this.colour != origin.colour) 
-				{
-					return true;
-				}
+		// 2 col 1 row attack
+		if ((this.col == (origin.col + 2) || (this.col == origin.col - 2))
+				&& ((this.row == origin.row + 1) || (this.row == origin.row - 1))) {
+			// if the piece is the opposite colour, return true
+			if (this.colour != origin.colour) {
+				return true;
 			}
+		}
 		return false;
 	}
 }
@@ -223,20 +219,50 @@ class Pawn extends Chesspiece {
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
-		// pawns only attack diagonlly directly in front of them (except for en passant
-		// lol)
-		if ((this.row + 1 == origin.row) && (this.col + 1 == origin.col || this.col - 1 == origin.col)) {
-			// if the piece is the opposite colour, return true
-			if (this.colour != origin.colour) {
-				return true;
+		// pawns only attack diagonlly directly in front of them (except for en passant)
+		
+		// if pawn is white, it attacks in the positive row direction
+		if (this.colour == true) {
+			if ((this.row + 1 == origin.row) && (this.col + 1 == origin.col || this.col - 1 == origin.col)) {
+				// if the piece is the opposite colour, return true
+				if (this.colour != origin.colour) {
+					return true;
+				}
+			}
+		}
+		//if black, negative row direction
+		else {
+			if ((this.row - 1 == origin.row) && (this.col + 1 == origin.col || this.col - 1 == origin.col)) {
+				// if the piece is the opposite colour, return true
+				if (this.colour != origin.colour) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 }
 
+//base node for linked list
+class Node
+{
+	Chesspiece data;
+	Chesspiece next;
+	//constructor: makes a Chesspiece and adds it to the end of the list
+	public Node(Chesspiece input)
+	{
+		this.data = input;
+		this.next = null;
+	}
+}
+
 public class Chessboard {
 	public static void main(String[] args) {
-		System.out.print("we are good");
+		System.out.println("we are good");
+		Chesspiece piece1 = new Bishop(4, 4, true);
+		Chesspiece piece2 = new Pawn(2, 2, false);
+
+		boolean test = piece1.isAttacking(piece2);
+		System.out.println("is this piece attacking the other piece? " + test);
 	}
 }
