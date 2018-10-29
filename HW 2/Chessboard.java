@@ -282,20 +282,20 @@ class linkedList {
 
 	// adds a Chesspiece to the list pointed to by the "head" input
 	public void addNode(Chesspiece input) {
-		//if at the head, just slap that node right there
+		// if at the head, just slap that node right there
 		Node head = front;
 		if (head.next == null) {
 			Node newNode = new Node(input);
 			head.next = newNode;
 			return;
 		}
-		
-		//otherwise,  traverse the list until it reaches the end
+
+		// otherwise, traverse the list until it reaches the end
 		while (head.next != null) {
 			// if at the end of the list, create linkedList item
 			head = head.next;
 		}
-		//add the node at the end of the list
+		// add the node at the end of the list
 		Node newNode = new Node(input);
 		head.next = newNode;
 		return;
@@ -318,7 +318,6 @@ class linkedList {
 			}
 			head = head.next;
 		}
-		
 		return true;
 	}
 
@@ -342,7 +341,7 @@ class linkedList {
 			output = output + " " + head.data.giveName();
 			head = head.next;
 		}
-		//can't forget the last one
+		// can't forget the last one
 		output = output + " " + head.data.giveName();
 		return output;
 	}
@@ -360,25 +359,26 @@ class Node {
 	}
 }
 
+//main PROGRAM 
 public class Chessboard {
+	//do stuff function that builds the board out of chesspieces and makes nodes and returns the final string
+	public static void makeList(String input)
+	{
+		//split input around colon
+		String[] split = input.split(":", 0);
+		//split[0] will contain the command
+		//split[1] contains the board
+		System.out.println(split[0]);
+		System.out.println(split[1]);
+		
+	}
 	public static void main(String[] args) {
 
-		System.out.println("we are good");
-		Chesspiece piece1 = new Bishop(4, 4, true);
-		Chesspiece piece2 = new Pawn(3, 3, false);
-
-		boolean test = piece1.isAttacking(piece2);
-		System.out.println("is this piece attacking the other piece? " + test);
-
-		Chesspiece piece3 = new King(3, 4, true);
-		Chesspiece piece4 = new Queen(5,3, false);
-		linkedList fun = new linkedList(piece1);
-		fun.addNode(piece2);
-		fun.addNode(piece3);
-		fun.addNode(piece4);
-		//System.out.println(piece1.giveName());
-	 	//System.out.println(fun.front.next.next.data.giveName());
-		System.out.println(fun.print());
-		System.out.println(fun.isValid());
+		String meme = "8 2: q 4 3 k 4 4 r 8 2 R 8 8 b 1 1 K 4 8 N 7 7";
+		/*String[] meme2 = meme.split(" ", 0);
+		for (String x : meme2)  {
+			System.out.println(x);
+		}*/
+		makeList(meme);
 	}
 }
