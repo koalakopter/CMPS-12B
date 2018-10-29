@@ -9,8 +9,8 @@ abstract class Chesspiece {
 
 	// determine if the chosen piece in the argument field attacks another piece
 	public abstract boolean isAttacking(Chesspiece origin);
-	
-	//returns a certain piece's name as a String
+
+	// returns a certain piece's name as a String
 	public abstract String giveName();
 
 	// returns the value of the piece's row/col
@@ -34,10 +34,9 @@ class King extends Chesspiece {
 	public King(int x, int y, boolean z) {
 		super(x, y, z);
 	}
-	
-	public String giveName()
-	{
-		return "king";
+
+	public String giveName() {
+		return "k";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -73,11 +72,10 @@ class Queen extends Chesspiece {
 	public Queen(int x, int y, boolean z) {
 		super(x, y, z);
 	}
-	
-	//this is da kween
-	public String giveName()
-	{
-		return "queen";
+
+	// this is da kween
+	public String giveName() {
+		return "q";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -134,11 +132,10 @@ class Rook extends Chesspiece {
 		super(x, y, z);
 	}
 
-	public String giveName()
-	{
-		return "rook";
+	public String giveName() {
+		return "r";
 	}
-	
+
 	public boolean isAttacking(Chesspiece origin) {
 		// rooks attack in straight lines
 		if (this.row == origin.row || this.col == origin.col) {
@@ -159,10 +156,9 @@ class Bishop extends Chesspiece {
 	public Bishop(int x, int y, boolean z) {
 		super(x, y, z);
 	}
-	
-	public String giveName()
-	{
-		return "bishop";
+
+	public String giveName() {
+		return "b";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -212,10 +208,9 @@ class Knight extends Chesspiece {
 	public Knight(int x, int y, boolean z) {
 		super(x, y, z);
 	}
-	
-	public String giveName()
-	{
-		return "knight";
+
+	public String giveName() {
+		return "n";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -246,15 +241,14 @@ class Pawn extends Chesspiece {
 	public Pawn(int x, int y, boolean z) {
 		super(x, y, z);
 	}
-	
-	public String giveName()
-	{
-		return "pawn";
+
+	public String giveName() {
+		return "p";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
 		// pawns only attack diagonlly directly in front of them (except for en passant)
-		
+
 		// if pawn is white, it attacks in the positive row direction
 		if (this.colour == true) {
 			if ((this.row + 1 == origin.row) && (this.col + 1 == origin.col || this.col - 1 == origin.col)) {
@@ -264,7 +258,7 @@ class Pawn extends Chesspiece {
 				}
 			}
 		}
-		//if black, negative row direction
+		// if black, negative row direction
 		else {
 			if ((this.row - 1 == origin.row) && (this.col + 1 == origin.col || this.col - 1 == origin.col)) {
 				// if the piece is the opposite colour, return true
@@ -278,40 +272,85 @@ class Pawn extends Chesspiece {
 }
 
 //linkedList class
-class linkedList
-{
+class linkedList {
 	Node front;
-	//creates a new LinkedList
-	public linkedList(Chesspiece piece)
-	{
+
+	// creates a new LinkedList
+	public linkedList(Chesspiece piece) {
 		front = new Node(piece);
 	}
-	//adds a Chesspiece to the list pointed to by the "head" input
-	public void addNode(Node head, Chesspiece input)
-	{
-		//traverses the list until it reaches the end
-		while(head.next != null)
-		{
-			//if at the end of the list, create linkedList item
-			if(head.next == null)
-			{
-				Node newNode = new Node(input);
-				head.next = newNode;
-			}
-			head.next = head;
-			
+
+	// adds a Chesspiece to the list pointed to by the "head" input
+	public void addNode(Chesspiece input) {
+		//if at the head, just slap that node right there
+		Node head = front;
+		if (head.next == null) {
+			Node newNode = new Node(input);
+			head.next = newNode;
+			return;
 		}
+		
+		//otherwise,  traverse the list until it reaches the end
+		while (head.next != null) {
+			// if at the end of the list, create linkedList item
+			head = head.next;
+		}
+		//add the node at the end of the list
+		Node newNode = new Node(input);
+		head.next = newNode;
+		return;
+	}
+
+	// checks if the chessboard is valid
+	public boolean isValid(Node head) {
+		Node compare;
+		// two nested loop compare every single node with each other to make sure no two
+		// are on the same square
+		while (head.next != null) {
+			compare = head.next;
+			while (compare.next != null) {
+				if (head.data.row == compare.data.row && head.data.col == compare.data.col) {
+					return false;
+				}
+				compare = compare.next;
+			}
+			head = head.next;
+		}
+		return true;
+	}
+
+	// finds a certain piece on a certain square
+	public String find(Node head, int row, int col) {
+		while (head.next != null) {
+			if (head.data.col == col && head.data.row == row) {
+				// if a match is found, returns the name of the piece
+				return head.data.giveName();
+			}
+			head = head.next;
+		}
+		return "-"; // no piece found
+	}
+
+	// test function to visually see what's in the list
+	public String print(Node head) {
+		String output = "";
+		System.out.print("derp");
+		while (head.next != null) {
+			System.out.print("derp");
+			output = output + head.data.giveName();
+			head = head.next;
+		}
+		return output;
 	}
 }
 
 //base node for linked list
-class Node
-{
+class Node {
 	Chesspiece data;
 	Node next;
-	//constructor: takes a Chesspiece and stores it in the node
-	public Node(Chesspiece input)
-	{
+
+	// constructor: takes a Chesspiece and stores it in the node
+	public Node(Chesspiece input) {
 		this.data = input;
 		next = null;
 	}
@@ -319,16 +358,20 @@ class Node
 
 public class Chessboard {
 	public static void main(String[] args) {
-		/*
+
 		System.out.println("we are good");
 		Chesspiece piece1 = new Bishop(4, 4, true);
 		Chesspiece piece2 = new Pawn(2, 2, false);
 
 		boolean test = piece1.isAttacking(piece2);
 		System.out.println("is this piece attacking the other piece? " + test);
-		*/
-		Chesspiece piece1 = new King(3,3, true);
+
+		Chesspiece piece3 = new King(3, 3, true);
 		linkedList fun = new linkedList(piece1);
-		System.out.println(piece1.giveName());
+		fun.addNode(piece2);
+		fun.addNode(piece3);
+		//System.out.println(piece1.giveName());
+	 	System.out.println(fun.front.next.next.data.giveName());
+		//System.out.println(fun.front.data.checkCol());
 	}
 }
