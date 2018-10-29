@@ -302,13 +302,15 @@ class linkedList {
 	}
 
 	// checks if the chessboard is valid
-	public boolean isValid(Node head) {
+	public boolean isValid() {
+		Node head = front;
 		Node compare;
 		// two nested loop compare every single node with each other to make sure no two
 		// are on the same square
 		while (head.next != null) {
 			compare = head.next;
-			while (compare.next != null) {
+			while (compare != null) {
+				System.out.println(head.data.toString() + compare.data.toString());
 				if (head.data.row == compare.data.row && head.data.col == compare.data.col) {
 					return false;
 				}
@@ -316,6 +318,7 @@ class linkedList {
 			}
 			head = head.next;
 		}
+		
 		return true;
 	}
 
@@ -332,14 +335,15 @@ class linkedList {
 	}
 
 	// test function to visually see what's in the list
-	public String print(Node head) {
+	public String print() {
+		Node head = front;
 		String output = "";
-		System.out.print("derp");
 		while (head.next != null) {
-			System.out.print("derp");
-			output = output + head.data.giveName();
+			output = output + " " + head.data.giveName();
 			head = head.next;
 		}
+		//can't forget the last one
+		output = output + " " + head.data.giveName();
 		return output;
 	}
 }
@@ -361,17 +365,20 @@ public class Chessboard {
 
 		System.out.println("we are good");
 		Chesspiece piece1 = new Bishop(4, 4, true);
-		Chesspiece piece2 = new Pawn(2, 2, false);
+		Chesspiece piece2 = new Pawn(3, 3, false);
 
 		boolean test = piece1.isAttacking(piece2);
 		System.out.println("is this piece attacking the other piece? " + test);
 
-		Chesspiece piece3 = new King(3, 3, true);
+		Chesspiece piece3 = new King(3, 4, true);
+		Chesspiece piece4 = new Queen(5,3, false);
 		linkedList fun = new linkedList(piece1);
 		fun.addNode(piece2);
 		fun.addNode(piece3);
+		fun.addNode(piece4);
 		//System.out.println(piece1.giveName());
-	 	System.out.println(fun.front.next.next.data.giveName());
-		//System.out.println(fun.front.data.checkCol());
+	 	//System.out.println(fun.front.next.next.data.giveName());
+		System.out.println(fun.print());
+		System.out.println(fun.isValid());
 	}
 }
