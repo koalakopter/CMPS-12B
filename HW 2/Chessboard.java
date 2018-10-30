@@ -1,6 +1,11 @@
+
 //JULIAN TO
 //jcto@ucsc.edu
 //HW2: CHESSBOARD
+
+import java.io.*;
+import static java.lang.System.out;
+import java.util.Scanner;
 
 //defines a superclass that encompasses all chesspieces
 abstract class Chesspiece {
@@ -388,19 +393,19 @@ class linkedList {
 	// traverses a list to find a certain Chesspiece: for use with find
 	public Chesspiece traverse(int x) {
 		Node head = front;
-		//System.out.println("what is head? " + head.data.giveName());
+		// System.out.println("what is head? " + head.data.giveName());
 		int i = 1;
 		while (head.next != null) {
-			//System.out.println("is " + i + " equal to " + x);
-			//System.out.println(head.data.giveName());
+			// System.out.println("is " + i + " equal to " + x);
+			// System.out.println(head.data.giveName());
 			if (i == x) {
-				//System.out.println("who am i? " + head.data.toString());
+				// System.out.println("who am i? " + head.data.toString());
 				return head.data;
 			}
 			i++;
 			head = head.next;
 		}
-		//this should really never happen if this function is used properly
+		// this should really never happen if this function is used properly
 		return head.data;
 	}
 }
@@ -506,31 +511,65 @@ public class Chessboard {
 		if (position == 0) {
 			return "-";
 		}
-		
-		Node temp = list.front; //temp head so we don't muck with other stuff
-		while(temp != null)
-		{
-			//System.out.println(list.traverse(position).giveName() + " is attacking " + temp.data.giveName());
-			if(list.traverse(position).isAttacking(temp.data))
-			{
-				return list.traverse(position).giveName() + " y"; //yes case
+
+		Node temp = list.front; // temp head so we don't muck with other stuff
+		while (temp != null) {
+			// System.out.println(list.traverse(position).giveName() + " is attacking " +
+			// temp.data.giveName());
+			if (list.traverse(position).isAttacking(temp.data)) {
+				return list.traverse(position).giveName() + " y"; // yes case
 			}
 			temp = temp.next;
 		}
-		return list.traverse(position).giveName() + " n"; //no case
+		return list.traverse(position).giveName() + " n"; // no case
 
-		//this should never happen
-		//return list.print();
+		// this should never happen
+		// return list.print();
+	}
+	public static void main(String[] args) throws IOException {
 
+		//int lineNumber = 0;
+
+		// check number of command line arguments is at least 2
+
+			//String meme = "8 2: q 4 3 k 4 4 r 8 2 R 8 8 b 1 1 K 4 8 N 7 7";
+			/*
+			 * String[] meme2 = meme.split(" ", 0); for (String x : meme2) {
+			 * System.out.println(x); }
+			 */
+			//System.out.println(makeList(meme));
+
+	if(args.length<2)
+	{
+		System.out.println("Usage: java -jar Chessboard.jar <input file> <output file>");
+		System.exit(1);
 	}
 
-	public static void main(String[] args) {
+	// Copied from Lab 2
+	// open files
+	Scanner in = new Scanner(new File(args[0]));
+	PrintWriter out = new PrintWriter(new FileWriter(args[1]));
 
-		String meme = "8 2: q 4 3 k 4 4 r 8 2 R 8 8 b 1 1 K 4 8 N 7 7";
-		/*
-		 * String[] meme2 = meme.split(" ", 0); for (String x : meme2) {
-		 * System.out.println(x); }
-		 */
-		System.out.println(makeList(meme));
+	// read lines from in, extract and print tokens from each line
+	while(in.hasNextLine())
+	{
+		// lineNumber++; //what does this even do
+
+		// trim leading and trailing spaces, then add one trailing space so
+		// split works on blank lines
+		String line = in.nextLine().trim() + " ";
+
+		// split line around white space
+		String[] token = line.split("\\r?\\n\"");
+
+		int n = token.length;
+
+		for (int i = 0; i < n; i++) {
+			//System.out.println(token[i]);
+			out.println(makeList(token[i]));
+		}
 	}
+	in.close();
+	out.close();
+	}	
 }
