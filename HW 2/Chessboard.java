@@ -361,24 +361,73 @@ class Node {
 
 //main PROGRAM 
 public class Chessboard {
-	//do stuff function that builds the board out of chesspieces and makes nodes and returns the final string
-	public static void makeList(String input)
-	{
-		//split input around colon
-		String[] split = input.split(":", 0);
-		//split[0] will contain the command
-		//split[1] contains the board
-		System.out.println(split[0]);
-		System.out.println(split[1]);
-		
+	// makes a chesspiece from the information provided from the input.txt file
+	public static Chesspiece makePiece(String x, int row, int col) {
+		// makes "x" into a char
+		char c = x.charAt(0);
+		boolean checkColor = Character.isUpperCase(c);
+		// just a bunch of if statments....
+		// make a king
+		if (x == "k" || x == "K") {
+			Chesspiece output = new King(row, col, checkColor);
+		} // make a queen
+		else if (x == "q" || x == "Q") {
+			Chesspiece output = new Queen(row, col, checkColor);
+		} // make a rook
+		else if (x == "r" || x == "R") {
+			Chesspiece output = new Rook(row, col, checkColor);
+		} // make a bishop
+		else if (x == "b" || x == "B") {
+			Chesspiece output = new Bishop(row, col, checkColor);
+		} //make a knight 
+		else if (x == "n" || x == "N") {
+			Chesspiece output = new Knight(row, col, checkColor);
+		}
+		//else, its a pawn or you have bad input (which there shouldn't be any of)
+		else {
+			Chesspiece output = new Pawn(row, col, checkColor);
+		}
+		return output;
 	}
+
+	// do stuff function that builds the board out of chesspieces and makes nodes
+	// and returns the final string
+	public static void makeList(String input) {
+		// split input around colon
+		String[] split = input.split(":", 0);
+
+		// split[0] will contain the command
+		// split[1] contains the board instructions
+
+		String[] command = split[0].split(" ", 0);
+		String[] board = split[1].split(" ", 0);
+		int i = 0;
+		// char array to store each piece
+		// 0: is piece type, 1: is row, 2: is col
+		String[] loop = new String[3];
+		for (String x : board) {
+			// first character denotes the type of piece
+			if (i == 0) {
+				loop[0] = x;
+			}
+			if (i == 1) {
+				loop[1] = x;
+			}
+			if (i == 2) {
+				loop[2] = x;
+			}
+			i++;
+		}
+
+	}
+
 	public static void main(String[] args) {
 
 		String meme = "8 2: q 4 3 k 4 4 r 8 2 R 8 8 b 1 1 K 4 8 N 7 7";
-		/*String[] meme2 = meme.split(" ", 0);
-		for (String x : meme2)  {
-			System.out.println(x);
-		}*/
+		/*
+		 * String[] meme2 = meme.split(" ", 0); for (String x : meme2) {
+		 * System.out.println(x); }
+		 */
 		makeList(meme);
 	}
 }
