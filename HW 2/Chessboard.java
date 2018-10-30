@@ -84,7 +84,6 @@ class Queen extends Chesspiece {
 			return "q";
 	}
 
-
 	public boolean isAttacking(Chesspiece origin) {
 		// queens attack in all 8 directions
 		if (this.row == origin.row || this.col == origin.col) {
@@ -332,7 +331,7 @@ class linkedList {
 		while (head.next != null) {
 			compare = head.next;
 			while (compare != null) {
-				System.out.println(head.data.toString() + compare.data.toString());
+				// System.out.println(head.data.toString() + compare.data.toString());
 				if (head.data.row == compare.data.row && head.data.col == compare.data.col) {
 					return false;
 				}
@@ -343,16 +342,34 @@ class linkedList {
 		return true;
 	}
 
-	// finds a certain piece on a certain square
-	public String find(Node head, int row, int col) {
+	// checks if a certain piece attacks any other piece
+	public boolean attacks(Chesspiece input) {
+		Node head = front;
+		// two nested loop compare every single node with each other to make sure no two
+		// are on the same square
 		while (head.next != null) {
-			if (head.data.col == col && head.data.row == row) {
-				// if a match is found, returns the name of the piece
-				return head.data.giveName();
+			if (input.isAttacking(head.data)) {
+				return true;
 			}
 			head = head.next;
 		}
-		return "-"; // no piece found
+		return false;
+	}
+
+	// method that find a certain piece on a square, and then returns that piece's
+	// position in the list, starting from one
+	public int find(int row, int col) {
+		Node head = front;
+		int position = 1;
+		while (head.next != null) {
+			if (head.data.col == col && head.data.row == row) {
+				// if a match is found, returns the name of the piece
+				return position;
+			}
+			head = head.next;
+			position++;
+		}
+		return 0; // no piece found
 	}
 
 	// test function to visually see what's in the list
@@ -366,6 +383,23 @@ class linkedList {
 		// can't forget the last one
 		output = output + " " + head.data.giveName();
 		return output;
+	}
+
+	// traverses a list to find a certain Chesspiece: for use with find
+	public Chesspiece traverse(int x) {
+		Node head = front;
+		int i = 1;
+		while (head.next != null) {
+			//System.out.println("is " + i + " equal to " + x);
+			//System.out.println(head.data.giveName());
+			if (i == x) {
+				return head.data;
+			}
+			i++;
+			head = head.next;
+		}
+		//this should really never happen if this function is used properly
+		return head.data;
 	}
 }
 
@@ -388,7 +422,6 @@ public class Chessboard {
 		// makes "x" into a char
 		char c = x.charAt(0);
 		boolean checkColor = Character.isUpperCase(c);
-		System.out.println(checkColor);
 		// just a bunch of if statments....
 		// make a king
 		if (c == 'k' || c == 'K') {
@@ -418,7 +451,7 @@ public class Chessboard {
 
 	// do stuff function that builds the board out of chesspieces and makes nodes
 	// and returns the final string
-	public static void makeList(String input) {
+	public static String makeList(String input) {
 		// split input around colon
 		String[] split = input.split(":", 0);
 
@@ -426,9 +459,8 @@ public class Chessboard {
 		// split[1] contains the board instructions
 
 		String[] command = split[0].split(" ", 0);
-		System.out.println(split[1]);
 		split[1] = split[1].trim(); // trim the leading space off of the 2nd part
-		System.out.println(split[1]);
+		// System.out.println(split[1]);
 		String[] board = split[1].split(" ", 0);
 		int i = 0;
 		int row = 0;
@@ -461,7 +493,32 @@ public class Chessboard {
 			// System.out.println("added 1");
 			i++;
 		}
-		System.out.println("this is your list:" + list.print());
+		// check validity
+		if (!list.isValid()) {
+			return "Invalid";
+		}
+
+		// finds a piece and returns the position of that piece in the list:
+		int position = list.find(Integer.parseInt(command[0]), Integer.parseInt(command[1]));
+		// if no piece found
+		if (position == 0) {
+			return "-";
+		}
+		
+		
+		while(list.front.next != null)
+		{
+			System.out.println(list.traverse(position).giveName() + " is attacking " + list.front.data.giveName());
+			if(list.traverse(position).isAttacking(list.front.data))
+			{
+				return list.traverse(position).giveName() + " y"; //yes case
+			}
+			list.front = list.front.next;
+		}
+		return list.traverse(position).giveName() + " n"; //no case
+
+		//this should never happen
+		//return list.print();
 
 	}
 
@@ -472,6 +529,6 @@ public class Chessboard {
 		 * String[] meme2 = meme.split(" ", 0); for (String x : meme2) {
 		 * System.out.println(x); }
 		 */
-		makeList(meme);
+		System.out.println(makeList(meme));
 	}
 }
