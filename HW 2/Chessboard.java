@@ -36,7 +36,10 @@ class King extends Chesspiece {
 	}
 
 	public String giveName() {
-		return "k";
+		if (this.colour) {
+			return "K";
+		} else
+			return "k";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -75,8 +78,12 @@ class Queen extends Chesspiece {
 
 	// this is da kween
 	public String giveName() {
-		return "q";
+		if (this.colour) {
+			return "Q";
+		} else
+			return "q";
 	}
+
 
 	public boolean isAttacking(Chesspiece origin) {
 		// queens attack in all 8 directions
@@ -133,7 +140,10 @@ class Rook extends Chesspiece {
 	}
 
 	public String giveName() {
-		return "r";
+		if (this.colour) {
+			return "R";
+		} else
+			return "r";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -158,7 +168,10 @@ class Bishop extends Chesspiece {
 	}
 
 	public String giveName() {
-		return "b";
+		if (this.colour) {
+			return "B";
+		} else
+			return "b";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -210,7 +223,10 @@ class Knight extends Chesspiece {
 	}
 
 	public String giveName() {
-		return "n";
+		if (this.colour) {
+			return "N";
+		} else
+			return "n";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -243,7 +259,10 @@ class Pawn extends Chesspiece {
 	}
 
 	public String giveName() {
-		return "p";
+		if (this.colour) {
+			return "P";
+		} else
+			return "p";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -293,7 +312,6 @@ class linkedList {
 			front = newNode;
 			return;
 		}
-		System.out.println("wheee");
 		// otherwise, traverse the list until it reaches the end
 		while (head.next != null) {
 			// if at the end of the list, create linkedList item
@@ -370,25 +388,26 @@ public class Chessboard {
 		// makes "x" into a char
 		char c = x.charAt(0);
 		boolean checkColor = Character.isUpperCase(c);
+		System.out.println(checkColor);
 		// just a bunch of if statments....
 		// make a king
-		if (x == "k" || x == "K") {
+		if (c == 'k' || c == 'K') {
 			Chesspiece output = new King(row, col, checkColor);
 			return output;
 		} // make a queen
-		else if (x == "q" || x == "Q") {
+		else if (c == 'q' || c == 'Q') {
 			Chesspiece output = new Queen(row, col, checkColor);
 			return output;
 		} // make a rook
-		else if (x == "r" || x == "R") {
+		else if (c == 'r' || c == 'R') {
 			Chesspiece output = new Rook(row, col, checkColor);
 			return output;
 		} // make a bishop
-		else if (x == "b" || x == "B") {
+		else if (c == 'b' || c == 'B') {
 			Chesspiece output = new Bishop(row, col, checkColor);
 			return output;
 		} // make a knight
-		else if (x == "n" || x == "N") {
+		else if (c == 'n' || c == 'N') {
 			Chesspiece output = new Knight(row, col, checkColor);
 			return output;
 		}
@@ -408,7 +427,7 @@ public class Chessboard {
 
 		String[] command = split[0].split(" ", 0);
 		System.out.println(split[1]);
-		split[1] = split[1].trim(); //trim the leading space off of the 2nd part
+		split[1] = split[1].trim(); // trim the leading space off of the 2nd part
 		System.out.println(split[1]);
 		String[] board = split[1].split(" ", 0);
 		int i = 0;
@@ -423,25 +442,26 @@ public class Chessboard {
 		// System.out.println(board);
 		for (String x : board) {
 			x = x.trim(); // trim the spaces
-			System.out.println("letter parsed is: " + x + " and i = " + i);
+			// System.out.println("letter parsed is: " + x + " and i = " + i);
 			// first character denotes the type of piece
 			if (i == 0) {
 				loop[0] = x;
 			} else if (i == 1) {
 				loop[1] = x;
-				//System.out.println(loop[1]);
+				// System.out.println(loop[1]);
 				row = Integer.parseInt(loop[1]);
 			} else if (i == 2) {
 				loop[2] = x;
 				col = Integer.parseInt(x);
 			} else if (i == 3) {
 				list.addNode(makePiece(loop[0], row, col));
-				i = -1; // reset the counter
+				loop[0] = x;
+				i = 0; // reset the counter
 			}
 			// System.out.println("added 1");
 			i++;
 		}
-		System.out.println(list.print());
+		System.out.println("this is your list:" + list.print());
 
 	}
 
