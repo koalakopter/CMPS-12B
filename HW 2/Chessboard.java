@@ -276,20 +276,24 @@ class linkedList {
 	Node front;
 
 	// creates a new LinkedList
-	public linkedList(Chesspiece piece) {
-		front = new Node(piece);
+	public linkedList() {
+		// front = new Node(piece);
+		front = null;
 	}
 
 	// adds a Chesspiece to the list pointed to by the "head" input
 	public void addNode(Chesspiece input) {
 		// if at the head, just slap that node right there
 		Node head = front;
-		if (head.next == null) {
+		if (front == null) {
 			Node newNode = new Node(input);
-			head.next = newNode;
+			// head.next = newNode;
+			newNode.next = null;
+			// set newNode as the front
+			front = newNode;
 			return;
 		}
-
+		System.out.println("wheee");
 		// otherwise, traverse the list until it reaches the end
 		while (head.next != null) {
 			// if at the end of the list, create linkedList item
@@ -370,23 +374,26 @@ public class Chessboard {
 		// make a king
 		if (x == "k" || x == "K") {
 			Chesspiece output = new King(row, col, checkColor);
+			return output;
 		} // make a queen
 		else if (x == "q" || x == "Q") {
 			Chesspiece output = new Queen(row, col, checkColor);
+			return output;
 		} // make a rook
 		else if (x == "r" || x == "R") {
 			Chesspiece output = new Rook(row, col, checkColor);
+			return output;
 		} // make a bishop
 		else if (x == "b" || x == "B") {
 			Chesspiece output = new Bishop(row, col, checkColor);
-		} //make a knight 
+			return output;
+		} // make a knight
 		else if (x == "n" || x == "N") {
 			Chesspiece output = new Knight(row, col, checkColor);
+			return output;
 		}
-		//else, its a pawn or you have bad input (which there shouldn't be any of)
-		else {
-			Chesspiece output = new Pawn(row, col, checkColor);
-		}
+		// else, its a pawn or you have bad input (which there shouldn't be any of)
+		Chesspiece output = new Pawn(row, col, checkColor);
 		return output;
 	}
 
@@ -400,24 +407,41 @@ public class Chessboard {
 		// split[1] contains the board instructions
 
 		String[] command = split[0].split(" ", 0);
+		System.out.println(split[1]);
+		split[1] = split[1].trim(); //trim the leading space off of the 2nd part
+		System.out.println(split[1]);
 		String[] board = split[1].split(" ", 0);
 		int i = 0;
+		int row = 0;
+		int col = 0;
+
 		// char array to store each piece
 		// 0: is piece type, 1: is row, 2: is col
 		String[] loop = new String[3];
+		// list that will be used
+		linkedList list = new linkedList();
+		// System.out.println(board);
 		for (String x : board) {
+			x = x.trim(); // trim the spaces
+			System.out.println("letter parsed is: " + x + " and i = " + i);
 			// first character denotes the type of piece
 			if (i == 0) {
 				loop[0] = x;
-			}
-			if (i == 1) {
+			} else if (i == 1) {
 				loop[1] = x;
-			}
-			if (i == 2) {
+				//System.out.println(loop[1]);
+				row = Integer.parseInt(loop[1]);
+			} else if (i == 2) {
 				loop[2] = x;
+				col = Integer.parseInt(x);
+			} else if (i == 3) {
+				list.addNode(makePiece(loop[0], row, col));
+				i = -1; // reset the counter
 			}
+			// System.out.println("added 1");
 			i++;
 		}
+		System.out.println(list.print());
 
 	}
 
