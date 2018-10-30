@@ -388,11 +388,13 @@ class linkedList {
 	// traverses a list to find a certain Chesspiece: for use with find
 	public Chesspiece traverse(int x) {
 		Node head = front;
+		//System.out.println("what is head? " + head.data.giveName());
 		int i = 1;
 		while (head.next != null) {
 			//System.out.println("is " + i + " equal to " + x);
 			//System.out.println(head.data.giveName());
 			if (i == x) {
+				//System.out.println("who am i? " + head.data.toString());
 				return head.data;
 			}
 			i++;
@@ -505,15 +507,15 @@ public class Chessboard {
 			return "-";
 		}
 		
-		
-		while(list.front.next != null)
+		Node temp = list.front; //temp head so we don't muck with other stuff
+		while(temp != null)
 		{
-			System.out.println(list.traverse(position).giveName() + " is attacking " + list.front.data.giveName());
-			if(list.traverse(position).isAttacking(list.front.data))
+			//System.out.println(list.traverse(position).giveName() + " is attacking " + temp.data.giveName());
+			if(list.traverse(position).isAttacking(temp.data))
 			{
 				return list.traverse(position).giveName() + " y"; //yes case
 			}
-			list.front = list.front.next;
+			temp = temp.next;
 		}
 		return list.traverse(position).giveName() + " n"; //no case
 
