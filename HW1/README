@@ -1,0 +1,17 @@
+Julian To
+CruzID: jcto
+Student ID: 1585002
+CMPS 12B
+HW1: NQUEENS
+
+Looked for help online about using print to file functions, like out.println since it wasn't working from within a method. Additionally discussed the merits of using a 2-D array vs a 1-D array with a friend, Colin Mitchell. Also looked up documentation of how to convert strings into ints.
+
+FILES PROVIDED:
+NQueens.java
+Makefile
+README
+
+TO RUN:
+type "make"
+run the command "java -jar NQueens.jar <input file> <output file>"
+where input file consists of strings of 3 numbers, with the first number being the size of the board, second num the row of the first queen, and the final number the column of the 1st queen.
