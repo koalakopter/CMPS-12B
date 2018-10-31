@@ -295,11 +295,11 @@ class Pawn extends Chesspiece {
 }
 
 //linkedList class
-class linkedList {
+class LinkedList {
 	Node front;
 
 	// creates a new LinkedList
-	public linkedList() {
+	public LinkedList() {
 		// front = new Node(piece);
 		front = null;
 	}
@@ -484,7 +484,7 @@ public class Chessboard {
 		// 0: is piece type, 1: is row, 2: is col
 		String[] loop = new String[3];
 		// list that will be used
-		linkedList list = new linkedList();
+		LinkedList list = new LinkedList();
 		//System.out.println("command: " + split[0]);
 		// System.out.println(split[1]);
 		for (String x : board) {
