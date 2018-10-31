@@ -330,14 +330,16 @@ class linkedList {
 	// checks if the chessboard is valid
 	public boolean isValid() {
 		Node head = front;
-		Node compare;
+		Node compare = head.next;
 		// two nested loop compare every single node with each other to make sure no two
 		// are on the same square
-		while (head.next != null) {
+		while (head != null) {
 			compare = head.next;
 			while (compare != null) {
-				// System.out.println(head.data.toString() + compare.data.toString());
+				//System.out.println(head.data.toString() + compare.data.toString());
+				//System.out.println("is: " + head.data.row + head.data.col + " equal to " + compare.data.row + compare.data.col);
 				if (head.data.row == compare.data.row && head.data.col == compare.data.col) {
+					
 					return false;
 				}
 				compare = compare.next;
@@ -368,11 +370,16 @@ class linkedList {
 		int position = 1;
 		while (head.next != null) {
 			if (head.data.col == col && head.data.row == row) {
-				// if a match is found, returns the name of the piece
+				// if a match is found, returns the position of the piece
 				return position;
 			}
 			head = head.next;
 			position++;
+		}
+		//checks the end node too
+		if (head.data.col == col && head.data.row == row) {
+			// if a match is found, returns the position of the piece
+			return position;
 		}
 		return 0; // no piece found
 	}
@@ -478,10 +485,11 @@ public class Chessboard {
 		String[] loop = new String[3];
 		// list that will be used
 		linkedList list = new linkedList();
-		// System.out.println(board);
+		//System.out.println("command: " + split[0]);
+		// System.out.println(split[1]);
 		for (String x : board) {
 			x = x.trim(); // trim the spaces
-			// System.out.println("letter parsed is: " + x + " and i = " + i);
+			//System.out.println("input!: " + x);
 			// first character denotes the type of piece
 			if (i == 0) {
 				loop[0] = x;
@@ -492,14 +500,13 @@ public class Chessboard {
 			} else if (i == 2) {
 				loop[2] = x;
 				col = Integer.parseInt(x);
-			} else if (i == 3) {
+				//System.out.println("Making this piece: " + loop[0] + row + col);
 				list.addNode(makePiece(loop[0], row, col));
-				loop[0] = x;
-				i = 0; // reset the counter
+				i = -1; //reset the counter
 			}
-			// System.out.println("added 1");
 			i++;
 		}
+		//System.out.println("Your list is: " + list.print());
 		// check validity
 		if (!list.isValid()) {
 			return "Invalid";
