@@ -6,9 +6,20 @@ ID: 1585002
 Looked for help regarding how to make Makefiles for files with multiple classes since my old makefile wasn;t working. Additionally, I looked up the syntax regarding how the .split() function worked. I also looked up how to use the .isUpperCase function for determining a piece's colour. I also probably looked up more bits here and there, but it was all just for how functions worked.
 
 FILES PROVIDED:
-NQueens.java
+ChessBoard.java
+Node.java
+LinkedList.java
+Chesspiece.java
+King.java
+Queen.java
+Rook.java
+Bishop.java
+Knight.java
+Pawn.java
+
 Makefile
 README
 
 Just type: "make"
 and then "java -jar ChessBoard.jar <input.txt> and <output.txt>" just like in the last lab
+(input.txt is your input string, output.txt is the output string)
