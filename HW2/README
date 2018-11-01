@@ -11,4 +11,4 @@ Makefile
 README
 
 Just type: "make"
-and then "java -jar <input.txt> and <output.txt>" just like in the last lab
+and then "java -jar ChessBoard.jar <input.txt> and <output.txt>" just like in the last lab
