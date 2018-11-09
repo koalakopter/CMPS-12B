@@ -1,0 +1,15 @@
+<<<<<<< HEAD
+Start with 4.0 points.
+=================================
+Error: file FileReverse.jar is not created by running command make
+Final score
+4
+=======
+Checker has failed. Below is the log of the checker
+=============================================
+There is no folder named Lab2
+FAIL
+==================================================
+Final score:
+0
+>>>>>>> Graded Lab2
