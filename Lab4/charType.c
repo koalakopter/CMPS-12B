@@ -31,7 +31,7 @@ int main(void)
 //3: if whitespace
 int checkChar(char input)
 {
-    //if alphanumeric
+    //if alphabetical
     if (isalpha(input) != 0)
     {
         return 0;
@@ -60,4 +60,38 @@ int checkChar(char input)
 void placeChars(char* in, char* out_a, char* out_n, char* out_p, char* out_w)
 {
     int a = 0, b = 0, c = 0, d = 0, e = 0; //counters for traversing arrays
+
+    while(in[a] != '\0' && a < MAX_LINE_LENGTH)
+    {
+        //if alphabetical
+        if(checkChar(in[a]) == 0)
+        {
+            out_a[b] = in[a];
+            b++;
+        }
+        //numeric
+        else if(checkChar(in[a]) == 1)
+        {
+            out_n[c] = in[a];
+            c++;
+        }
+        //punctuation
+        else if(checkChar(in[a]) == 2)
+        {
+            out_p[d] = in[a];
+            d++;
+        }
+        //whitespace
+        else if(checkChar(in[a]) == 3)
+        {
+            out_w[e] = in[a];
+            e++;
+        }
+        a++; //increments the traversal of the input array
+    }
+    //adds terminating char at the end of the array
+    out_a[b] = '\0';
+    out_n[c] = '\0';
+    out_p[d] = '\0';
+    out_w[e] = '\0';
 }
