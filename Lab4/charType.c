@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 	char* white; //stores whitespace
 	char* output; //output string
 
-	int lineCount; //counts the line
+	int lineCount = 1; //counts the line
 
 	/* check command line for correct number of arguments */
 	if (argc != 3) {
@@ -61,8 +61,43 @@ int main(int argc, char* argv[]) {
 	while (fgets(line, MAX_LINE_LENGTH, in) != NULL) {
         placeChars(line, alpha, number, punct, white);
         fprintf(out, "line %d contains:", lineCount);
-        print(output, line, alpha, number, punct, white);
-        fprintf(out, "%s/n", output);
+            //must check for length of each string to see if you should print out plural or not
+		if(strlen(alpha) != 1)
+		{
+			fprintf(out, "%d alphabetical characters: %s\n", (int)strlen(alpha), alpha);
+		}
+		else
+		{
+			fprintf(out, "%d alphabetical character: %s\n", (int)strlen(alpha), alpha);
+		}
+
+		if(strlen(number) != 1)
+		{
+			fprintf(out, "%d numeric characters: %s\n", (int)strlen(number), number);
+		}
+		else
+		{
+			fprintf(out, "%d numeric character: %s\n", (int)strlen(number), number);
+		}
+
+		if(strlen(punct) != 1)
+		{
+			fprintf(out, "%d punctuation characters: %s\n", (int)strlen(punct), punct);
+		}
+		else
+		{
+			fprintf(out, "%d punctuation character: %s\n", (int)strlen(punct), punct);
+		}
+
+		if(strlen(white) != 1)
+		{
+			fprintf(out, "%d whitespace characters: %s\n", (int)strlen(white), white);
+		}
+		else
+		{
+			fprintf(out, "%d whitespace character: %s\n", (int)strlen(white), white);
+		}
+
 	}
 
 	/* close input and output files */
@@ -193,4 +228,5 @@ char* print(char* output, char* in, char* out_a, char* out_n, char* out_p, char*
     {
         sprintf(output, "%d whitespace character: %s\n", (int)strlen(out_w), out_w);
     }
+	return output;
 }
