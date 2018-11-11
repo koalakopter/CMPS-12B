@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 	//reads lines in while they still exist
 	while (fgets(line, MAX_LINE_LENGTH, in) != NULL) {
         placeChars(line, alpha, number, punct, white);
-        fprintf(out, "line %d contains:", lineCount);
+        fprintf(out, "line %d contains:\n", lineCount);
             //must check for length of each string to see if you should print out plural or not
 		if(strlen(alpha) != 1)
 		{
