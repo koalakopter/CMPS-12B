@@ -1,0 +1,18 @@
+Julian To
+jcto@ucsc.edu
+Lab 4: charType.c
+
+Files Included:
+charType.c
+charType
+charType.o
+README
+Makefile
+in.txt
+out.txt
+
+TO RUN:
+type "make"
+then: "./charType <input.txt> <output.txt>
+
+Help Recieved was mainly through the built-in ctype functions: isalpha, isdigit, and isSpace. Also referenced some old CE13 Labs that I did because I forgot how to use malloc/calloc. Also, some stuff was copied from lab 3, mainly the stuff about reading from a file.

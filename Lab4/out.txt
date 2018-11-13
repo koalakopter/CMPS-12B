@@ -1,0 +1,29 @@
+line 1 contains:8 alphabetical characters: CVrecipe
+12 numeric characters: 400200500700
+3 punctuation characters: ///
+4 whitespace characters:   
+
+line 1 contains:6 alphabetical characters: planes
+11 numeric characters: 24010260261
+4 punctuation characters: :///
+3 whitespace characters:  
+
+line 1 contains:0 alphabetical characters: 
+0 numeric characters: 
+0 punctuation characters: 
+2 whitespace characters: 
+
+line 1 contains:21 alphabetical characters: KCCLDDCVLFastfleetLoS
+7 numeric characters: 2513234
+5 punctuation characters: -:,>.
+7 whitespace characters:      
+
+line 1 contains:0 alphabetical characters: 
+0 numeric characters: 
+0 punctuation characters: 
+2 whitespace characters: 
+
+line 1 contains:6 alphabetical characters: SMGsGF
+12 numeric characters: 495412112233
+5 punctuation characters: ///:'
+8 whitespace characters:         

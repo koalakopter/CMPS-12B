@@ -59,16 +59,18 @@ int main(int argc, char* argv[]) {
 	//stolen from Lab3
 	//reads lines in while they still exist
 	while (fgets(line, MAX_LINE_LENGTH, in) != NULL) {
+		//calls function to sort characters
         placeChars(line, alpha, number, punct, white);
+		//header
         fprintf(out, "line %d contains:\n", lineCount);
-            //must check for length of each string to see if you should print out plural or not
+        //must check for length of each string to see if you should print out plural or not
 		if(strlen(alpha) != 1)
 		{
-			fprintf(out, "%d alphabetical characters: %s\n", (int)strlen(alpha), alpha);
+			fprintf(out, "%d alphabetic characters: %s\n", (int)strlen(alpha), alpha);
 		}
 		else
 		{
-			fprintf(out, "%d alphabetical character: %s\n", (int)strlen(alpha), alpha);
+			fprintf(out, "%d alphabetic character: %s\n", (int)strlen(alpha), alpha);
 		}
 
 		if(strlen(number) != 1)
@@ -97,7 +99,7 @@ int main(int argc, char* argv[]) {
 		{
 			fprintf(out, "%d whitespace character: %s\n", (int)strlen(white), white);
 		}
-
+		lineCount++; //increment the line counter at the end
 	}
 
 	/* close input and output files */
