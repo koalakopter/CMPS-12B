@@ -1,18 +1,21 @@
-Checker has failed. Below is the log of the checker
+Checker passed. Start with 4.0 points.
+=================================
+Simple test passes
+Passed Lab2-tests/simple.txt
+Score is now 5.0
 =============================================
-javac -Xlint FileReverse.java
-Makefile:7: recipe for target 'FileReverse.class' failed
-File FileReverse.java found
-File Makefile found
-File README found
-File gettysburg.txt found
-File gettysburg-reversed.txt found
-======================================
-All files are present in folder. Good!
-======================================
-make: ran successfully
-Error: Executable FileReverse.jar is not created by running command make
-FAIL
-==================================================
-Final score:
-0
+Lorem Ipsum test passes
+Passed Lab2-tests/lorem.txt
+Score is now 6.0
+=============================================
+Alphanumeric test passes
+Passed Lab2-tests/alphanumeric.txt
+Score is now 8.0
+=============================================
+Symbol test passes
+Passed Lab2-tests/symbol.txt
+Score is now 10.0
+=============================================
+Solution has passed all tests. The ordeal is over, you can take a breath now.
+Final score
+10
