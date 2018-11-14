@@ -192,8 +192,8 @@ class LinkedList {
 	// row and column are the destination of target piece
 	// input assumes a legal move
 	public boolean inTheWay(Chesspiece target, int row, int col) {
-		// if you input the same square, returns false because you cannot be in the way
-		// of yourself
+		// if you input the same square, returns false because 
+		// you cannot be in the way of yourself
 		if (target.row == row && target.col == col) {
 			return false;
 		}
@@ -212,7 +212,8 @@ class LinkedList {
 		if (target.row == row) {
 			// check right
 			if (target.col > path_col) {
-				while (target.col != path_col) {
+				path_col++; //ignore the square you are trying to move to
+				while (target.col > path_col) {
 
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
@@ -224,7 +225,10 @@ class LinkedList {
 			}
 			// check left
 			else if (target.col < path_col) {
-				while (target.col != path_col) {
+				path_col--; //go one less to ignore the square you are trying to move to
+				//System.out.println("wheeee");
+				while (target.col < path_col) {
+					//System.out.println("comparing: " + target.row + target.col + " and " + path_row + path_col);
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
 					if (this.find(path_row, path_col) != 0) {
@@ -238,7 +242,8 @@ class LinkedList {
 		else if (target.col == col) {
 			// check up
 			if (target.row > path_row) {
-				while (target.row != path_row) {
+				path_row++;
+				while (target.row > path_row) {
 
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
@@ -250,7 +255,8 @@ class LinkedList {
 			}
 			// check down
 			else if (target.row < path_row) {
-				while (target.row != path_row) {
+				path_col--;
+				while (target.row < path_row) {
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
 					if (this.find(path_row, path_col) != 0) {
@@ -266,6 +272,8 @@ class LinkedList {
 			//top left diagonal check
 			if(target.row - path_row > 0 && target.col - path_col < 0)
 			{
+				path_row++;
+				path_col--;
 				while(target.row != path_row)
 				{
 					if (this.find(path_row, path_col) != 0) {
@@ -279,6 +287,8 @@ class LinkedList {
 			//top right diagonal check
 			else if(target.row - path_row > 0 && target.col - path_col > 0)
 			{	
+				path_row++;
+				path_col++;
 				while(target.row != path_row)
 				{
 					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
@@ -293,6 +303,8 @@ class LinkedList {
 			//bottom left diagonal check
 			else if(target.row - path_row < 0 && target.col - path_col < 0)
 			{
+				path_row--;
+				path_col--;
 				while(target.row != path_row)
 				{
 					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
@@ -307,6 +319,8 @@ class LinkedList {
 			//bottom right diagonal check
 			else if(target.row - path_row > 0 && target.col - path_col < 0)
 			{
+				path_row--;
+				path_col++;
 				while(target.row != path_row)
 				{
 					if (this.find(path_row, path_col) != 0) {
