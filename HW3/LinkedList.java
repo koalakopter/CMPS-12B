@@ -119,12 +119,12 @@ class LinkedList {
 		// this should really never happen if this function is used properly
 		return head.data;
 	}
-	//target is the Node you wish to delete
-	public void delete(Node target)
+	//target is the Chesspiece you wish to delete
+	public void delete(Chesspiece target)
 	{
 		Node head = front; 
 		//if target is the head, change front
-		if (target == head)
+		if (target == head.data)
 		{
 			front = front.next;
 			return;
@@ -132,13 +132,59 @@ class LinkedList {
 		//else traverse until you find it
 		while (head.next != null)
 		{
-			if(head.next == target)
+			//System.out.println("AM I alive");
+			if(head.next.data == target)
 			{
 				//if the next thing head points to is the target
 				//change the next to point to target's next instead
-				head.next = target.next;
+				
+				//if the node you are deleting is the end of the list, set next to null instead
+				if(head.next.next == null)
+				{
+					//System.out.println("AM I ok");
+					head.next = null;
+					return;
+				}
+				//System.out.println("AM I dead");
+				head.next = head.next.next;
+				return;
 			}
 			head = head.next;
 		}
+	}
+	
+	//given an input of row/col (of a piece moving there)
+	//checks then if the piece can legally move there 
+	public boolean isOccupied(int row, int col, boolean colour) //true is white, black is false
+	{
+		Node head = front;
+		//checks the head first
+		if(head.data.row == row && head.data.col == col && head.data.colour == colour)
+		{
+			return true;
+		}
+		//traverse
+		while(head.next != null)
+		{
+			if(head.data.row == row && head.data.col == col && head.data.colour == colour)
+			{
+				return true;
+			}
+			head = head.next;
+		}
+		return false;
+	}
+	
+	//checks if a piece can make a certain move (ex. a rook can't move diagonally)
+	//row and col are destination, target is the piece you are trying to move
+	public boolean isLegalMove(Chesspiece target, int row, int col)
+	{
+		//creates a silly dummy pawn and tests if attacking (how lazy!)
+		Chesspiece dummy = new Pawn(row, col, !target.colour);
+		if (target.isAttacking(dummy))
+		{
+			return true;
+		}
+		return false;
 	}
 }
