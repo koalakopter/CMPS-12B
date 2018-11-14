@@ -6,9 +6,9 @@ class King extends Chesspiece {
 	//God Save the King
 	public String giveName() {
 		if (this.colour) {
-			return "K";
-		} else
 			return "k";
+		} else
+			return "K";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {

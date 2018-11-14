@@ -6,9 +6,9 @@ class Bishop extends Chesspiece {
 	//This bishop isn't an Elector, unfortunately
 	public String giveName() {
 		if (this.colour) {
-			return "B";
-		} else
 			return "b";
+		} else
+			return "B";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
