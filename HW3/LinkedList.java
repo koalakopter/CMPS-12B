@@ -187,8 +187,10 @@ class LinkedList {
 		return false;
 	}
 
-	// checks if something is in the path of the piece as it moves to a target
-	// square
+	// checks if something is in the path of the piece as it moves to a target square
+	// target is the piece being moved
+	// row and column are the destination of target piece
+	// input assumes a legal move
 	public boolean inTheWay(Chesspiece target, int row, int col) {
 		// if you input the same square, returns false because you cannot be in the way
 		// of yourself
@@ -317,5 +319,30 @@ class LinkedList {
 			}
 		}
 		return false;
+	}
+	
+	//checks if the king is safe after a move (cannot put your own king in check)
+	//returns false if not safe
+	//input is the king you want to check
+	public boolean kingSafe(Chesspiece king)
+	{
+		Node head = front;
+		//System.out.println(head.data.giveName() + " in the way? " + !this.inTheWay(head.data, king.row , king.col));
+		//check if head is attacking King AND not blocked
+		if(head.data.isAttacking(king) && !this.inTheWay(head.data, king.row , king.col))
+		{
+			return false;
+		}
+		//next, traverse the list like normal
+		while(head.next != null)
+		{
+			//System.out.println(head.data.giveName() + " in the way? " + !this.inTheWay(head.data, king.row , king.col));
+			if(head.data.isAttacking(king) && !this.inTheWay(head.data, king.row , king.col))
+			{
+				return false;
+			}
+			head = head.next;
+		}
+		return true;
 	}
 }
