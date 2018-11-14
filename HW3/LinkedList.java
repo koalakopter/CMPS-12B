@@ -204,8 +204,8 @@ class LinkedList {
 		}
 
 		// keeps track of the squares the piece travels across
-		int path_row = row;
-		int path_col = col;
+		int path_row = row; //destination row
+		int path_col = col; //destination column
 		// if moving horizontally, check the columns in the path
 		if (target.row == row) {
 			// check right
@@ -256,6 +256,64 @@ class LinkedList {
 					}
 					path_row--;
 				}
+			}
+		}
+		
+		//diagonal checkers
+		else {
+			//top left diagonal check
+			if(target.row - path_row > 0 && target.col - path_col < 0)
+			{
+				while(target.row != path_row)
+				{
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+				path_row++;
+				path_col--;
+				}
+				
+			}
+			//top right diagonal check
+			else if(target.row - path_row > 0 && target.col - path_col > 0)
+			{	
+				while(target.row != path_row)
+				{
+					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+				path_row++;
+				path_col++;
+				}
+				
+			}
+			//bottom left diagonal check
+			else if(target.row - path_row < 0 && target.col - path_col < 0)
+			{
+				while(target.row != path_row)
+				{
+					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+				path_row--;
+				path_col--;
+				}
+				
+			}
+			//bottom right diagonal check
+			else if(target.row - path_row > 0 && target.col - path_col < 0)
+			{
+				while(target.row != path_row)
+				{
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+				path_row--;
+				path_col++;
+				}
+				
 			}
 		}
 		return false;
