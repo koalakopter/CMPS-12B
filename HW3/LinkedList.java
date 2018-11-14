@@ -40,10 +40,11 @@ class LinkedList {
 		while (head != null) {
 			compare = head.next;
 			while (compare != null) {
-				//System.out.println(head.data.toString() + compare.data.toString());
-				//System.out.println("is: " + head.data.row + head.data.col + " equal to " + compare.data.row + compare.data.col);
+				// System.out.println(head.data.toString() + compare.data.toString());
+				// System.out.println("is: " + head.data.row + head.data.col + " equal to " +
+				// compare.data.row + compare.data.col);
 				if (head.data.row == compare.data.row && head.data.col == compare.data.col) {
-					
+
 					return false;
 				}
 				compare = compare.next;
@@ -80,7 +81,7 @@ class LinkedList {
 			head = head.next;
 			position++;
 		}
-		//checks the end node too
+		// checks the end node too
 		if (head.data.col == col && head.data.row == row) {
 			// if a match is found, returns the position of the piece
 			return position;
@@ -119,71 +120,143 @@ class LinkedList {
 		// this should really never happen if this function is used properly
 		return head.data;
 	}
-	//target is the Chesspiece you wish to delete
-	public void delete(Chesspiece target)
-	{
-		Node head = front; 
-		//if target is the head, change front
-		if (target == head.data)
-		{
+
+	// target is the Chesspiece you wish to delete
+	public void delete(Chesspiece target) {
+		Node head = front;
+		// if target is the head, change front
+		if (target == head.data) {
 			front = front.next;
 			return;
 		}
-		//else traverse until you find it
-		while (head.next != null)
-		{
-			//System.out.println("AM I alive");
-			if(head.next.data == target)
-			{
-				//if the next thing head points to is the target
-				//change the next to point to target's next instead
-				
-				//if the node you are deleting is the end of the list, set next to null instead
-				if(head.next.next == null)
-				{
-					//System.out.println("AM I ok");
+		// else traverse until you find it
+		while (head.next != null) {
+			// System.out.println("AM I alive");
+			if (head.next.data == target) {
+				// if the next thing head points to is the target
+				// change the next to point to target's next instead
+
+				// if the node you are deleting is the end of the list, set next to null instead
+				if (head.next.next == null) {
+					// System.out.println("AM I ok");
 					head.next = null;
 					return;
 				}
-				//System.out.println("AM I dead");
+				// System.out.println("AM I dead");
 				head.next = head.next.next;
 				return;
 			}
 			head = head.next;
 		}
 	}
-	
-	//given an input of row/col (of a piece moving there)
-	//checks then if the piece can legally move there 
-	public boolean isOccupied(int row, int col, boolean colour) //true is white, black is false
+
+	// given an input of row/col (of a piece moving there)
+	// checks then if the piece can legally move there
+	public boolean isOccupied(int row, int col, boolean colour) // true is white, black is false
 	{
 		Node head = front;
-		//checks the head first
-		if(head.data.row == row && head.data.col == col && head.data.colour == colour)
-		{
+		// checks the head first
+		if (head.data.row == row && head.data.col == col && head.data.colour == colour) {
 			return true;
 		}
-		//traverse
-		while(head.next != null)
-		{
-			if(head.data.row == row && head.data.col == col && head.data.colour == colour)
-			{
+		// traverse
+		while (head.next != null) {
+			if (head.data.row == row && head.data.col == col && head.data.colour == colour) {
 				return true;
 			}
 			head = head.next;
 		}
 		return false;
 	}
-	
-	//checks if a piece can make a certain move (ex. a rook can't move diagonally)
-	//row and col are destination, target is the piece you are trying to move
-	public boolean isLegalMove(Chesspiece target, int row, int col)
-	{
-		//creates a silly dummy pawn and tests if attacking (how lazy!)
+
+	// checks if a piece can make a certain move (ex. a rook can't move diagonally)
+	// row and col are destination, target is the piece you are trying to move
+	public boolean isLegalMove(Chesspiece target, int row, int col) {
+		// creates a silly dummy pawn and tests if attacking (how lazy!)
 		Chesspiece dummy = new Pawn(row, col, !target.colour);
-		if (target.isAttacking(dummy))
-		{
+
+		// checks if the move is to itself (can't do that)
+		// ex: cant move from (3,3) to (3,3)
+		System.out.println("Im trying to move from " + target.row + "," + target.col + " to: " + row + ", " + col);
+		if (target.row == row && target.col == col) {
+			return false;
+		}
+		if (target.isAttacking(dummy)) {
 			return true;
+		}
+		return false;
+	}
+
+	// checks if something is in the path of the piece as it moves to a target
+	// square
+	public boolean inTheWay(Chesspiece target, int row, int col) {
+		// if you input the same square, returns false because you cannot be in the way
+		// of yourself
+		if (target.row == row && target.col == col) {
+			return false;
+		}
+		// function ignores knights/pawns/kings
+		// knights ignore blocking, pawns and kings can only attack one square away so
+		// this is irrelevant
+		if (target.giveName() == "n" || target.giveName() == "N" || target.giveName() == "k" || target.giveName() == "K"
+				|| target.giveName() == "p" || target.giveName() == "P") {
+			return false;
+		}
+
+		// keeps track of the squares the piece travels across
+		int path_row = row;
+		int path_col = col;
+		// if moving horizontally, check the columns in the path
+		if (target.row == row) {
+			// check right
+			if (target.col > path_col) {
+				while (target.col != path_col) {
+
+					// if a piece is not found, function returns zero, so non zero means piece
+					// exists
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+					path_col++;
+				}
+			}
+			// check left
+			else if (target.col < path_col) {
+				while (target.col != path_col) {
+					// if a piece is not found, function returns zero, so non zero means piece
+					// exists
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+					path_col--;
+				}
+			}
+		}
+		//check for vertical pathing
+		else if (target.col == col) {
+			// check up
+			if (target.row > path_row) {
+				while (target.row != path_row) {
+
+					// if a piece is not found, function returns zero, so non zero means piece
+					// exists
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+					path_row++;
+				}
+			}
+			// check down
+			else if (target.row < path_row) {
+				while (target.row != path_row) {
+					// if a piece is not found, function returns zero, so non zero means piece
+					// exists
+					if (this.find(path_row, path_col) != 0) {
+						return true;
+					}
+					path_row--;
+				}
+			}
 		}
 		return false;
 	}
