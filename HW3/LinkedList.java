@@ -363,6 +363,11 @@ class LinkedList {
 	// input is the king you want to check
 	public boolean kingSafe(Chesspiece king) {
 		Node head = front;
+		//System.out.println("memes");
+		if(king == null) //why would you do this
+		{
+			return false;
+		}
 		// System.out.println(head.data.giveName() + " in the way? " +
 		// !this.inTheWay(head.data, king.row , king.col));
 		// check if head is attacking King AND not blocked
@@ -387,11 +392,15 @@ class LinkedList {
 	// for use with isKingSafe
 	public Chesspiece findKing(boolean colour) {
 		Node head = front;
+		
 		while (head.next != null) {
+			//System.out.println("meme");
 			// checks for the name of the piece and then the colour
 			if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
+				//System.out.println("success");
 				return head.data;
 			}
+			head = head.next;
 		}
 		return null; // no king found? why would this happen? We're better than this
 	}
@@ -401,11 +410,14 @@ class LinkedList {
 	public boolean canMove(Chesspiece target, int endRow, int endCol) {
 		// check 1: is it a legal move?
 		if (!this.isLegalMove(target, endRow, endCol)) {
+			//System.out.println("fail here?");
 			return false;
 		}
 		//check 2: is something in the way?
-		if(!this.inTheWay(target, endRow, endCol))
+		//if true, then return false;
+		if(this.inTheWay(target, endRow, endCol))
 		{
+			//System.out.println("or here?");
 			return false;
 		}
 		//check 3: is your King in check after this move?
@@ -413,9 +425,11 @@ class LinkedList {
 		int tempCol = target.col;
 		
 		target.row = endRow;
-		target.col = endCol; 
+		target.col = endCol;
+		//System.out.println("perhaps here?");
 		if(!this.kingSafe(this.findKing(target.colour)))
 		{
+			//System.out.println("maybe here?");
 			//if false, move the piece back
 			target.row = tempRow;
 			target.col = tempCol; 
