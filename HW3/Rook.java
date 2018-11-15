@@ -6,9 +6,9 @@ class Rook extends Chesspiece {
 	//Pass these plates around
 	public String giveName() {
 		if (this.colour) {
-			return "R";
-		} else
 			return "r";
+		} else
+			return "R";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {

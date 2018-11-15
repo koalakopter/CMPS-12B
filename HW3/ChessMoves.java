@@ -158,7 +158,7 @@ public class ChessMoves {
 		
 		
 		if (args.length < 2) {
-			System.out.println("Usage: java -jar Chessboard.jar <input file> <output file>");
+			System.out.println("Usage: java -jar Chessmoves.jar <input file> <output file>");
 			System.exit(1);
 		}
 
