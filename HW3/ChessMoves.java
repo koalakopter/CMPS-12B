@@ -4,6 +4,7 @@
 
 import java.io.*;
 import java.lang.String;
+import java.util.Scanner;
 
 public class ChessMoves {
 	//makes a chesspiece!
@@ -34,7 +35,7 @@ public class ChessMoves {
 			return output;
 		}
 		// else, its a pawn or you have bad input (which there shouldn't be any of)
-		Chesspiece output = new Pawn(row, col, checkColor);
+		Chesspiece output = new Pawn(row, col, !checkColor);
 		return output;
 	}
 	//does everything really
@@ -81,6 +82,10 @@ public class ChessMoves {
 		//2nd pair represent the position you wish to move it to
 		i = 0; //iterator counter
 		int commands[] = new int[4]; //array of ints, length 4 to hold commands
+		 //checks which colour moved last, moves must alternate colours
+		//also, white plays first
+		boolean movedLast = false;
+		//System.out.println(movedLast + "sam");
 		for(int y = 0; y < split[1].length(); y++)
 		{
 			//System.out.println("thing being parsed: " + split[1].substring(y, y+1));
@@ -103,29 +108,47 @@ public class ChessMoves {
 			// if invalid, returns the invalid command + "illegal"
 			else if(i == 3)
 			{
+				//System.out.println(list.print());
+				//System.out.println(list.traverse(list.find(4, 1)));
 				commands[3] = Integer.parseInt(split[1].substring(y, y+1));
+				
+				//sets a local boolean to determine which colour moved last
+				//if the same colour moves twice / black starts, return error
+				//System.out.println(list.traverse(list.find(commands[1], commands[0])).colour + " versus " + movedLast);
+				//System.out.println(list.traverse(list.find(commands[1], commands[0])).toString());
+				if(movedLast == list.traverse(list.find(commands[1], commands[0])).colour)
+				{
+					//System.out.println("damn");
+					return commands[0] + " " + commands[1] + " " + commands[2] + " " +  commands[3] + " illegal";
+				}
+				//set the movedLast colour to the colour of the piece you just moved
+				movedLast = list.traverse(list.find(commands[1], commands[0])).colour;
 				//this hunky if statement finds the piece at the target square
 				//then sees if it can move to the destination square
 				//if true, then sweet
 				//if false, then illegal move
 				
-				System.out.println(list.print());
-				System.out.println("moving " + commands[0] + commands[1] + " to " + commands[2] + commands[3]);
+				//System.out.println(list.print());
+				//System.out.println("moving " + commands[0] + commands[1] + " to " + commands[2] + commands[3]);
 				if(!list.canMove(list.traverse(list.find(commands[1], commands[0])), 
 						commands[3], commands[2]))
 				{
 					return commands[0] + " " + commands[1] + " " + commands[2] + " " +  commands[3] + " illegal";
 				}
-				i = -1;
+				
+				i = -1; //reset incrementer
 			}
 			i++;
 		}
 		//legal sequence of moves!
-		return "Legal";
+		return "legal";
 	}
-	public static void main(String[] args)
-	{
+	//MAIN FUNCTION
+	public static void main(String[] args) throws IOException {
+
 		/*
+		 //******** TESTING STUFF ******
+
 		//me test me smart
 		LinkedList koala = new LinkedList();
 		Chesspiece one = new Rook(6, 7, false);
@@ -152,12 +175,47 @@ public class ChessMoves {
 		System.out.println("can I move here? " + koala.canMove(six, 7,4));
 		System.out.println(koala.print());
 		*/
-		///*
-		String input = "k 1 1 r 2 1 q 3 4 B 2 4 K 5 5: 3 4 2 4 2 4 3 5";
-		//input = input.replaceAll("\\s+","");
-		System.out.println(makeList(input));
-		//System.out.println(input.substring(20, 21));
-		//*/
 		
+		String input = "k 1 1 K 4 4 q 2 2 Q 3 3: 2 2 3 3 4 4 3 3";
+
+		System.out.println(makeList(input));
+
+		
+		
+		/*
+		if(args.length<2)
+		{
+			System.out.println("Usage: java -jar Chessboard.jar <input file> <output file>");
+			System.exit(1);
+		}
+
+		// Copied from Lab 2
+		// open files
+		Scanner in = new Scanner(new File(args[0]));
+		PrintWriter out = new PrintWriter(new FileWriter(args[1]));
+
+		// read lines from in, extract and print tokens from each line
+		while(in.hasNextLine())
+		{
+			// lineNumber++; //what does this even do
+
+			// trim leading and trailing spaces, then add one trailing space so
+			// split works on blank lines
+			String line = in.nextLine().trim() + " ";
+
+			// split line around white space
+			String[] token = line.split("\\r?\\n\"");
+
+			int n = token.length;
+
+			for (int i = 0; i < n; i++) {
+				//System.out.println(token[i]);
+				out.println(makeList(token[i]));
+			}
+		}
+		in.close();
+		out.close();
+		*/
+	
 	}
 }

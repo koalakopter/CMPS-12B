@@ -166,6 +166,10 @@ class LinkedList {
 			}
 			head = head.next;
 		}
+		//check the end too
+		if (head.data.row == row && head.data.col == col && head.data.colour == colour) {
+			return true;
+		}
 		return false;
 	}
 
@@ -376,12 +380,16 @@ class LinkedList {
 		}
 		// next, traverse the list like normal
 		while (head.next != null) {
-			// System.out.println(head.data.giveName() + " in the way? " +
+			 //System.out.println("checking " + head.data.toString());
 			// !this.inTheWay(head.data, king.row , king.col));
 			if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
 				return false;
 			}
 			head = head.next;
+		}
+		//can't forget the end
+		if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
+			return false;
 		}
 		return true;
 	}
@@ -446,6 +454,16 @@ class LinkedList {
 			target.col = tempCol; 
 			return false;
 		}
+		//put the piece back
+		target.row = tempRow;
+		target.col = tempCol; 
+		//delete the piece if there is a piece that needs to be captured
+		if(find(endRow, endCol) != 0)
+		{
+			this.delete(this.traverse(this.find(endRow, endCol)));
+		}
+		target.row = endRow;
+		target.col = endCol;
 		//passed all tests, piece can stay where it is :)
 		return true;
 	}
