@@ -94,11 +94,11 @@ class LinkedList {
 		Node head = front;
 		String output = "";
 		while (head.next != null) {
-			output = output + " " + head.data.giveName() + " (" + head.data.row + "," + head.data.col + ")";
+			output = output + " " + head.data.giveName() + " (" + head.data.col + "," + head.data.row + ")";
 			head = head.next;
 		}
 		// can't forget the last one
-		output = output + " " + head.data.giveName() + " (" + head.data.row + "," + head.data.col + ")";
+		output = output + " " + head.data.giveName() + " (" + head.data.col + "," + head.data.row + ")";
 		return output;
 	}
 
@@ -151,7 +151,7 @@ class LinkedList {
 	}
 
 	// given an input of row/col (of a piece moving there)
-	// checks then if the piece can legally move there
+	// checks then if the piece can legally move there by capturing a piece
 	public boolean isOccupied(int row, int col, boolean colour) // true is white, black is false
 	{
 		Node head = front;
@@ -394,13 +394,18 @@ class LinkedList {
 		Node head = front;
 		
 		while (head.next != null) {
-			//System.out.println("meme");
+			//System.out.println("looking at: " + head.data.toString());
 			// checks for the name of the piece and then the colour
 			if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
-				//System.out.println("success");
+				//System.out.println("found king at: " + head.data.col + head.data.row);
 				return head.data;
 			}
 			head = head.next;
+		}
+		//check the last node too
+		if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
+			//System.out.println("found king at: " + head.data.col + head.data.row);
+			return head.data;
 		}
 		return null; // no king found? why would this happen? We're better than this
 	}
@@ -408,7 +413,7 @@ class LinkedList {
 	// checks if a move is legal (all parameters)
 	// inputs are the piece and its destination
 	public boolean canMove(Chesspiece target, int endRow, int endCol) {
-		// check 1: is it a legal move?
+		// check 1: is it a legal move (or rather, is this how your piece should move)?
 		if (!this.isLegalMove(target, endRow, endCol)) {
 			//System.out.println("fail here?");
 			return false;
@@ -420,10 +425,16 @@ class LinkedList {
 			//System.out.println("or here?");
 			return false;
 		}
-		//check 3: is your King in check after this move?
+		//check 3: check for occupied square
+		if(this.isOccupied(endRow, endCol, target.colour))
+		{
+			return false;
+		}
+		//check 4: is your King in check after this move?
 		int tempRow = target.row;
 		int tempCol = target.col;
 		
+		//moves the piece to the destination square
 		target.row = endRow;
 		target.col = endCol;
 		//System.out.println("perhaps here?");
@@ -435,7 +446,7 @@ class LinkedList {
 			target.col = tempCol; 
 			return false;
 		}
-
+		//passed all tests, piece can stay where it is :)
 		return true;
 	}
 }
