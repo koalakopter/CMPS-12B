@@ -150,11 +150,11 @@ public class ChessMoves {
 		 * System.out.println("can I move here? " + koala.canMove(six, 7,4));
 		 * System.out.println(koala.print());
 		 */
-		/*
-		  String input = "b 4 1 n 4 2 q 1 4 R 1 1 K 2 2 k 4 4: 1 4 1 1 2 2 1 2";
-		  
-		  System.out.println(makeList(input));
-		 */
+		
+		//************************CASE TESTING CORNER***************************
+		 //String input = "q 1 7 Q 2 5 K 3 6 k 4 4 b 7 2 n 7 7 N 5 7 r 6 3: 7 2 3 6 4 4 3 3 1 7 5 7 5 7 1 7";
+		 //System.out.println(makeList(input));
+		 
 		
 		
 		if (args.length < 2) {

@@ -302,8 +302,10 @@ class LinkedList {
 
 		// diagonal checkers
 		else {
+			//System.out.println("FUBAR " + target.row + target.col + " " + path_row + path_col);
 			// top left diagonal check
 			if (target.row - path_row > 0 && target.col - path_col < 0) {
+				//System.out.println("test1");
 				path_row++;
 				path_col--;
 				while (target.row != path_row) {
@@ -317,6 +319,7 @@ class LinkedList {
 			}
 			// top right diagonal check
 			else if (target.row - path_row > 0 && target.col - path_col > 0) {
+				//System.out.println("test2");
 				path_row++;
 				path_col++;
 				while (target.row != path_row) {
@@ -332,6 +335,7 @@ class LinkedList {
 			}
 			// bottom left diagonal check
 			else if (target.row - path_row < 0 && target.col - path_col < 0) {
+				//System.out.println("test3");
 				path_row--;
 				path_col--;
 				while (target.row != path_row) {
@@ -346,7 +350,8 @@ class LinkedList {
 
 			}
 			// bottom right diagonal check
-			else if (target.row - path_row > 0 && target.col - path_col < 0) {
+			else if (target.row - path_row < 0 && target.col - path_col > 0) {
+				//System.out.println("test4");
 				path_row--;
 				path_col++;
 				while (target.row != path_row) {
