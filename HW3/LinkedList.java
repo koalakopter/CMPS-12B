@@ -94,11 +94,11 @@ class LinkedList {
 		Node head = front;
 		String output = "";
 		while (head.next != null) {
-			output = output + " " + head.data.giveName();
+			output = output + " " + head.data.giveName() + " (" + head.data.row + "," + head.data.col + ")";
 			head = head.next;
 		}
 		// can't forget the last one
-		output = output + " " + head.data.giveName();
+		output = output + " " + head.data.giveName() + " (" + head.data.row + "," + head.data.col + ")";
 		return output;
 	}
 
@@ -177,22 +177,50 @@ class LinkedList {
 
 		// checks if the move is to itself (can't do that)
 		// ex: cant move from (3,3) to (3,3)
-		System.out.println("Im trying to move from " + target.row + "," + target.col + " to: " + row + ", " + col);
+		// System.out.println("Im trying to move from " + target.row + "," + target.col
+		// + " to: " + row + ", " + col);
 		if (target.row == row && target.col == col) {
 			return false;
 		}
 		if (target.isAttacking(dummy)) {
 			return true;
 		}
+		// pawn check since pawns do things differently sometimes
+		if (target.giveName() == "p" || target.giveName() == "P") {
+			// white pawns move in the positive row
+			if (target.colour) {
+				// pawns can move 2 squares on the first move
+				if (target.row == 2) {
+					if (row == 3 || row == 4) {
+						return true;
+					}
+				} else {
+					if (row == target.row + 1) {
+						return true;
+					}
+				}
+			} else {
+				if (target.row == 7) {
+					if (row == 6 || row == 5) {
+						return true;
+					}
+				} else {
+					if (row == target.row - 1) {
+						return true;
+					}
+				}
+			}
+		}
 		return false;
 	}
 
-	// checks if something is in the path of the piece as it moves to a target square
+	// checks if something is in the path of the piece as it moves to a target
+	// square
 	// target is the piece being moved
 	// row and column are the destination of target piece
 	// input assumes a legal move
 	public boolean inTheWay(Chesspiece target, int row, int col) {
-		// if you input the same square, returns false because 
+		// if you input the same square, returns false because
 		// you cannot be in the way of yourself
 		if (target.row == row && target.col == col) {
 			return false;
@@ -206,13 +234,13 @@ class LinkedList {
 		}
 
 		// keeps track of the squares the piece travels across
-		int path_row = row; //destination row
-		int path_col = col; //destination column
+		int path_row = row; // destination row
+		int path_col = col; // destination column
 		// if moving horizontally, check the columns in the path
 		if (target.row == row) {
 			// check right
 			if (target.col > path_col) {
-				path_col++; //ignore the square you are trying to move to
+				path_col++; // ignore the square you are trying to move to
 				while (target.col > path_col) {
 
 					// if a piece is not found, function returns zero, so non zero means piece
@@ -225,10 +253,11 @@ class LinkedList {
 			}
 			// check left
 			else if (target.col < path_col) {
-				path_col--; //go one less to ignore the square you are trying to move to
-				//System.out.println("wheeee");
+				path_col--; // go one less to ignore the square you are trying to move to
+				// System.out.println("wheeee");
 				while (target.col < path_col) {
-					//System.out.println("comparing: " + target.row + target.col + " and " + path_row + path_col);
+					// System.out.println("comparing: " + target.row + target.col + " and " +
+					// path_row + path_col);
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
 					if (this.find(path_row, path_col) != 0) {
@@ -238,7 +267,7 @@ class LinkedList {
 				}
 			}
 		}
-		//check for vertical pathing
+		// check for vertical pathing
 		else if (target.col == col) {
 			// check up
 			if (target.row > path_row) {
@@ -266,97 +295,133 @@ class LinkedList {
 				}
 			}
 		}
-		
-		//diagonal checkers
+
+		// diagonal checkers
 		else {
-			//top left diagonal check
-			if(target.row - path_row > 0 && target.col - path_col < 0)
-			{
+			// top left diagonal check
+			if (target.row - path_row > 0 && target.col - path_col < 0) {
 				path_row++;
 				path_col--;
-				while(target.row != path_row)
-				{
+				while (target.row != path_row) {
 					if (this.find(path_row, path_col) != 0) {
 						return true;
 					}
-				path_row++;
-				path_col--;
+					path_row++;
+					path_col--;
 				}
-				
+
 			}
-			//top right diagonal check
-			else if(target.row - path_row > 0 && target.col - path_col > 0)
-			{	
+			// top right diagonal check
+			else if (target.row - path_row > 0 && target.col - path_col > 0) {
 				path_row++;
 				path_col++;
-				while(target.row != path_row)
-				{
-					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
+				while (target.row != path_row) {
+					// System.out.println("comparing " + target.row + target.col + " and " +
+					// path_row + path_col);
 					if (this.find(path_row, path_col) != 0) {
 						return true;
 					}
-				path_row++;
-				path_col++;
+					path_row++;
+					path_col++;
 				}
-				
+
 			}
-			//bottom left diagonal check
-			else if(target.row - path_row < 0 && target.col - path_col < 0)
-			{
+			// bottom left diagonal check
+			else if (target.row - path_row < 0 && target.col - path_col < 0) {
 				path_row--;
 				path_col--;
-				while(target.row != path_row)
-				{
-					//System.out.println("comparing " + target.row + target.col + " and " + path_row + path_col);
+				while (target.row != path_row) {
+					// System.out.println("comparing " + target.row + target.col + " and " +
+					// path_row + path_col);
 					if (this.find(path_row, path_col) != 0) {
 						return true;
 					}
-				path_row--;
-				path_col--;
+					path_row--;
+					path_col--;
 				}
-				
+
 			}
-			//bottom right diagonal check
-			else if(target.row - path_row > 0 && target.col - path_col < 0)
-			{
+			// bottom right diagonal check
+			else if (target.row - path_row > 0 && target.col - path_col < 0) {
 				path_row--;
 				path_col++;
-				while(target.row != path_row)
-				{
+				while (target.row != path_row) {
 					if (this.find(path_row, path_col) != 0) {
 						return true;
 					}
-				path_row--;
-				path_col++;
+					path_row--;
+					path_col++;
 				}
-				
+
 			}
 		}
 		return false;
 	}
-	
-	//checks if the king is safe after a move (cannot put your own king in check)
-	//returns false if not safe
-	//input is the king you want to check
-	public boolean kingSafe(Chesspiece king)
-	{
+
+	// checks if the king is safe after a move (cannot put your own king in check)
+	// returns false if not safe
+	// input is the king you want to check
+	public boolean kingSafe(Chesspiece king) {
 		Node head = front;
-		//System.out.println(head.data.giveName() + " in the way? " + !this.inTheWay(head.data, king.row , king.col));
-		//check if head is attacking King AND not blocked
-		if(head.data.isAttacking(king) && !this.inTheWay(head.data, king.row , king.col))
-		{
+		// System.out.println(head.data.giveName() + " in the way? " +
+		// !this.inTheWay(head.data, king.row , king.col));
+		// check if head is attacking King AND not blocked
+		if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
 			return false;
 		}
-		//next, traverse the list like normal
-		while(head.next != null)
-		{
-			//System.out.println(head.data.giveName() + " in the way? " + !this.inTheWay(head.data, king.row , king.col));
-			if(head.data.isAttacking(king) && !this.inTheWay(head.data, king.row , king.col))
-			{
+		// next, traverse the list like normal
+		while (head.next != null) {
+			// System.out.println(head.data.giveName() + " in the way? " +
+			// !this.inTheWay(head.data, king.row , king.col));
+			if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
 				return false;
 			}
 			head = head.next;
 		}
+		return true;
+	}
+
+	// finds the king of a certain colour in a list
+	// true = White, false = Black
+	// there should always be a king
+	// for use with isKingSafe
+	public Chesspiece findKing(boolean colour) {
+		Node head = front;
+		while (head.next != null) {
+			// checks for the name of the piece and then the colour
+			if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
+				return head.data;
+			}
+		}
+		return null; // no king found? why would this happen? We're better than this
+	}
+
+	// checks if a move is legal (all parameters)
+	// inputs are the piece and its destination
+	public boolean canMove(Chesspiece target, int endRow, int endCol) {
+		// check 1: is it a legal move?
+		if (!this.isLegalMove(target, endRow, endCol)) {
+			return false;
+		}
+		//check 2: is something in the way?
+		if(!this.inTheWay(target, endRow, endCol))
+		{
+			return false;
+		}
+		//check 3: is your King in check after this move?
+		int tempRow = target.row;
+		int tempCol = target.col;
+		
+		target.row = endRow;
+		target.col = endCol; 
+		if(!this.kingSafe(this.findKing(target.colour)))
+		{
+			//if false, move the piece back
+			target.row = tempRow;
+			target.col = tempCol; 
+			return false;
+		}
+
 		return true;
 	}
 }
