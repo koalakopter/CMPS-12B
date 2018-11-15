@@ -166,7 +166,7 @@ class LinkedList {
 			}
 			head = head.next;
 		}
-		//check the end too
+		// check the end too
 		if (head.data.row == row && head.data.col == col && head.data.colour == colour) {
 			return true;
 		}
@@ -365,10 +365,13 @@ class LinkedList {
 	// checks if the king is safe after a move (cannot put your own king in check)
 	// returns false if not safe
 	// input is the king you want to check
-	public boolean kingSafe(Chesspiece king) {
+	// also takes in parameters for the destination row and column
+	// pieces at that space (unless they are a king)
+	// are ignored when considering attacks on the king (b/c they'd be captured)
+	public boolean kingSafe(Chesspiece king, int destRow, int destCol) {
 		Node head = front;
-		//System.out.println("memes");
-		if(king == null) //why would you do this
+		// System.out.println("checking king at " + king.row + " " + king.col);
+		if (king == null) // why would you do this
 		{
 			return false;
 		}
@@ -376,20 +379,29 @@ class LinkedList {
 		// !this.inTheWay(head.data, king.row , king.col));
 		// check if head is attacking King AND not blocked
 		if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
-			return false;
+			if (head.data.row != destRow && head.data.col != destCol && head.data != king) {
+				return false;
+			}
 		}
 		// next, traverse the list like normal
 		while (head.next != null) {
 			 //System.out.println("checking " + head.data.toString());
 			// !this.inTheWay(head.data, king.row , king.col));
 			if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
-				return false;
+				//System.out.println("meme" + head.data.row + head.data.col + " " + destRow + destCol);\
+				//checks if the piece attacking is on the same square as the destination piece
+				if (!(head.data.row == destRow && head.data.col == destCol)) 
+				{
+					return false;
+				}
 			}
 			head = head.next;
 		}
-		//can't forget the end
+		// can't forget the end
 		if (head.data.isAttacking(king) && !this.inTheWay(head.data, king.row, king.col)) {
-			return false;
+			if (!(head.data.row == destRow && head.data.col == destCol)) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -400,19 +412,19 @@ class LinkedList {
 	// for use with isKingSafe
 	public Chesspiece findKing(boolean colour) {
 		Node head = front;
-		
+
 		while (head.next != null) {
-			//System.out.println("looking at: " + head.data.toString());
+			// System.out.println("looking at: " + head.data.toString());
 			// checks for the name of the piece and then the colour
 			if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
-				//System.out.println("found king at: " + head.data.col + head.data.row);
+				// System.out.println("found king at: " + head.data.col + head.data.row);
 				return head.data;
 			}
 			head = head.next;
 		}
-		//check the last node too
+		// check the last node too
 		if (head.data.colour == colour && (head.data.giveName() == "k" || head.data.giveName() == "K")) {
-			//System.out.println("found king at: " + head.data.col + head.data.row);
+			// System.out.println("found king at: " + head.data.col + head.data.row);
 			return head.data;
 		}
 		return null; // no king found? why would this happen? We're better than this
@@ -426,45 +438,42 @@ class LinkedList {
 			//System.out.println("fail here?");
 			return false;
 		}
-		//check 2: is something in the way?
-		//if true, then return false;
-		if(this.inTheWay(target, endRow, endCol))
-		{
+		// check 2: is something in the way?
+		// if true, then return false;
+		if (this.inTheWay(target, endRow, endCol)) {
 			//System.out.println("or here?");
 			return false;
 		}
-		//check 3: check for occupied square
-		if(this.isOccupied(endRow, endCol, target.colour))
-		{
+		// check 3: check for occupied square
+		if (this.isOccupied(endRow, endCol, target.colour)) {
+			//System.out.println("...here?");
 			return false;
 		}
-		//check 4: is your King in check after this move?
+		// check 4: is your King in check after this move?
 		int tempRow = target.row;
 		int tempCol = target.col;
-		
-		//moves the piece to the destination square
+
+		// moves the piece to the destination square
 		target.row = endRow;
 		target.col = endCol;
-		//System.out.println("perhaps here?");
-		if(!this.kingSafe(this.findKing(target.colour)))
-		{
+		// System.out.println("perhaps here?");
+		if (!this.kingSafe(this.findKing(target.colour), endRow, endCol)) {
 			//System.out.println("maybe here?");
-			//if false, move the piece back
+			// if false, move the piece back
 			target.row = tempRow;
-			target.col = tempCol; 
+			target.col = tempCol;
 			return false;
 		}
-		//put the piece back
+		// put the piece back
 		target.row = tempRow;
-		target.col = tempCol; 
-		//delete the piece if there is a piece that needs to be captured
-		if(find(endRow, endCol) != 0)
-		{
+		target.col = tempCol;
+		// delete the piece if there is a piece that needs to be captured
+		if (find(endRow, endCol) != 0) {
 			this.delete(this.traverse(this.find(endRow, endCol)));
 		}
 		target.row = endRow;
 		target.col = endCol;
-		//passed all tests, piece can stay where it is :)
+		// passed all tests, piece can stay where it is :)
 		return true;
 	}
 }
