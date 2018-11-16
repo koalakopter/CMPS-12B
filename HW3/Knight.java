@@ -6,9 +6,9 @@ class Knight extends Chesspiece {
 	//Knight of Knights!
 	public String giveName() {
 		if (this.colour) {
-			return "N";
-		} else
 			return "n";
+		} else
+			return "N";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {

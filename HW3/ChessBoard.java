@@ -128,7 +128,7 @@ public class ChessBoard {
 		System.out.println("Usage: java -jar Chessboard.jar <input file> <output file>");
 		System.exit(1);
 	}
-	//System.out.println("Am I working?");
+
 	// Copied from Lab 2
 	// open files
 	Scanner in = new Scanner(new File(args[0]));

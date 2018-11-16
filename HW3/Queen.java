@@ -6,9 +6,9 @@ class Queen extends Chesspiece {
 	// this is da kween
 	public String giveName() {
 		if (this.colour) {
-			return "Q";
-		} else
 			return "q";
+		} else
+			return "Q";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {

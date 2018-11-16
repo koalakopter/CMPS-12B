@@ -6,9 +6,9 @@ class Pawn extends Chesspiece {
 	//"In chess, the pawns go first" - Magneto
 	public String giveName() {
 		if (this.colour) {
-			return "P";
-		} else
 			return "p";
+		} else
+			return "P";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
