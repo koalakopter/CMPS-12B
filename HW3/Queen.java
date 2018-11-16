@@ -6,9 +6,9 @@ class Queen extends Chesspiece {
 	// this is da kween
 	public String giveName() {
 		if (this.colour) {
-			return "q";
-		} else
 			return "Q";
+		} else
+			return "q";
 	}
 
 	public boolean isAttacking(Chesspiece origin) {
@@ -21,7 +21,7 @@ class Queen extends Chesspiece {
 		}
 		int a, b;
 		// top right diagonal
-		for (a = this.row, b = this.col; a < 8 && b < 8; a++, b++) {
+		for (a = this.row, b = this.col; a <= 8 && b <= 8; a++, b++) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {
@@ -30,7 +30,7 @@ class Queen extends Chesspiece {
 			}
 		}
 		// top left diagonal
-		for (a = this.row, b = this.col; a >= 0 && b < 8; a--, b++) {
+		for (a = this.row, b = this.col; a >= 0 && b <= 8; a--, b++) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {
@@ -48,7 +48,7 @@ class Queen extends Chesspiece {
 			}
 		}
 		// bottom right diagonal
-		for (a = this.row, b = this.col; a < 8 && b >= 0; a++, b--) {
+		for (a = this.row, b = this.col; a <= 8 && b >= 0; a++, b--) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {
