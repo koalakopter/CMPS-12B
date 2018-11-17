@@ -226,6 +226,7 @@ class LinkedList {
 	public boolean inTheWay(Chesspiece target, int row, int col) {
 		// if you input the same square, returns false because
 		// you cannot be in the way of yourself
+		//System.out.println("this piece: is going from: " + target.col + target.row + " to " + col + row);
 		if (target.row == row && target.col == col) {
 			return false;
 		}
@@ -274,10 +275,11 @@ class LinkedList {
 		// check for vertical pathing
 		else if (target.col == col) {
 			// check up
+			//System.out.println("which is bigger? " + target.row + " or " + path_row);
 			if (target.row > path_row) {
 				path_row++;
 				while (target.row > path_row) {
-
+					//System.out.println("Checking coord: " + path_col + path_row);
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
 					if (this.find(path_row, path_col) != 0) {
@@ -288,8 +290,10 @@ class LinkedList {
 			}
 			// check down
 			else if (target.row < path_row) {
-				path_col--;
+				//System.out.println("test2");
+				path_row--;
 				while (target.row < path_row) {
+					//System.out.println("Checking coord: " + path_col + path_row);
 					// if a piece is not found, function returns zero, so non zero means piece
 					// exists
 					if (this.find(path_row, path_col) != 0) {
@@ -302,7 +306,7 @@ class LinkedList {
 
 		// diagonal checkers
 		else {
-			//System.out.println("FUBAR " + target.row + target.col + " " + path_row + path_col);
+			//System.out.println("FUBAR " + target.col + target.row + " " + path_col + path_row);
 			// top left diagonal check
 			if (target.row - path_row > 0 && target.col - path_col < 0) {
 				//System.out.println("test1");

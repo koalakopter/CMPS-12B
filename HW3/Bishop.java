@@ -15,7 +15,7 @@ class Bishop extends Chesspiece {
 		// bishops attack diagonally
 		int a, b;
 		// top right diagonal
-		for (a = this.row, b = this.col; a < 8 && b < 8; a++, b++) {
+		for (a = this.row, b = this.col; a <= 8 && b <= 8; a++, b++) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {
@@ -24,7 +24,7 @@ class Bishop extends Chesspiece {
 			}
 		}
 		// top left diagonal
-		for (a = this.row, b = this.col; a >= 0 && b < 8; a--, b++) {
+		for (a = this.row, b = this.col; a >= 0 && b <= 8; a--, b++) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {
@@ -42,7 +42,7 @@ class Bishop extends Chesspiece {
 			}
 		}
 		// bottom right diagonal
-		for (a = this.row, b = this.col; a < 8 && b >= 0; a++, b--) {
+		for (a = this.row, b = this.col; a <= 8 && b >= 0; a++, b--) {
 			if (a == origin.checkRow() && b == origin.checkCol()) {
 				// if the piece is the opposite colour, return true
 				if (this.colour != origin.colour) {

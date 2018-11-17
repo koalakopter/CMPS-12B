@@ -152,8 +152,8 @@ public class ChessMoves {
 		 */
 		
 		//************************CASE TESTING CORNER***************************
-		 //String input = "q 1 7 Q 2 5 K 3 6 k 4 4 b 7 2 n 7 7 N 5 7 r 6 3: 7 2 3 6 4 4 3 3 1 7 5 7 5 7 1 7";
-		 //System.out.println(makeList(input));
+		// String input = "k 1 1 r 2 1 q 4 5 b 2 6 K 8 8: 2 6 6 2 ";
+		// System.out.println(makeList(input));
 		 
 		
 		
