@@ -155,7 +155,47 @@ public class NQueens {
 	static String findSolution_v2 (String input)
 	{
 		String solution = "";
+		//parse the input, splits string up after every space
+		String[] parse = input.split(" ");
+		int count = 0; 
+		int boardSize = 0;
+		//arrayLists for storing placed queens
+		//int[] col = new int[13]; //max board size is 13
+		//int[] row = new int[13];
+		List<Integer> col = new ArrayList<>();
+		List<Integer> row = new ArrayList<>();
+		int queensToPlace = 0; //keeps track of how many queens need to be placed
+		for (String x : parse)
+		{
+			//reads the size of the board
+			if(count == 0)
+			{
+				boardSize = Integer.parseInt(x);
+				queensToPlace = boardSize; 
+				count = 1;
+				continue;
+			}
+			//column of placed queen
+			else if(count == 1)
+			{
+				col.add(Integer.parseInt(x));
+				count = 2;
+				continue;
+			}
+			//row of placed queen
+			else if(count == 2)
+			{
+				row.add(Integer.parseInt(x));
+				count = 1;
+				queensToPlace--; //for every queen added to the board, need to place one less queen
+				continue;
+			}
+		}
 		
+		for(int x : col)
+		{
+			System.out.println(x);
+		}
 		return solution;
 	}
 
@@ -165,7 +205,7 @@ public class NQueens {
 
 		// check number of command line arguments is at least 2
 
-		
+	/*	
 		if (args.length < 2) {
 			System.out.println("Usage: java -jar NQueens.jar <input file> <output file>");
 			System.exit(1);
@@ -208,17 +248,18 @@ public class NQueens {
 					out.println(findSolution(parse[0], parse[1], parse[2]));
 				}
 			}
-			*/
+			
 		}
+		// close files
 		in.close();
 		out.close();
 	}
-
+	*/
 		 
-		// close files
+		
 		// TESTING CORNER
-		//String input = "5 1 5";
-		//System.out.println(findSolution(5, 1, 5));
-	
+		String input = "11 4 4 6 3";
+		System.out.println(findSolution_v2(input));
+	}
 }
 
