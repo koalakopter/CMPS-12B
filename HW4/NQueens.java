@@ -192,11 +192,33 @@ public class NQueens {
 			}
 		}
 		
-		for(int x : col)
+		//create the board
+		int[][] board = new int[boardSize][boardSize];
+		//add queens to the board
+		for(int x = 0; x < col.size(); x++)
 		{
-			System.out.println(x);
+			//its minus one because arrays start at zero
+			board[col.get(x) - 1][row.get(x) - 1] = 1;//add queens to board
 		}
+		board[0][0] = 1;
+		solution = print(board, boardSize);
+		
 		return solution;
+	}
+	//prints a visualization of the board
+	public static String print(int[][] board, int boardSize)
+	{
+		String output = "";
+		//prints the board for checking
+		for(int i = boardSize - 1; i >= 0; i--)
+		{
+			for (int j = 0;  j < boardSize; j++)
+			{
+				output = output + board[i][j] + " ";
+			}
+			output = output + "\n";
+		}
+		return output;
 	}
 
 	public static void main(String[] args) throws IOException {
