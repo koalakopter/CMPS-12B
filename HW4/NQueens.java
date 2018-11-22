@@ -198,13 +198,27 @@ public class NQueens {
 		for(int x = 0; x < col.size(); x++)
 		{
 			//its minus one because arrays start at zero
-			board[col.get(x) - 1][row.get(x) - 1] = 1;//add queens to board
+			board[col.get(x)][row.get(x)] = 1;//add queens to board
 		}
 		board[0][0] = 1;
-		solution = print(board, boardSize);
+		//solution = print(board, boardSize);
 		
 		return solution;
 	}
+	//solves NQueens using stacks
+	//input: a board with some preplaced queens, size of board, and the columns of preplaced queens
+	//output: a solved board (2-d arrays with 1's and 0's
+	public static int[][] placeQueenStack(int[][] board, int size, ArrayList<Integer> col)
+	{
+		//make a stack
+		Stack s = new Stack();
+		int[][] output = board;
+		
+		
+		return output;
+	}
+	
+	
 	//prints a visualization of the board
 	public static String print(int[][] board, int boardSize)
 	{
