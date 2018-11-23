@@ -198,21 +198,44 @@ public class NQueens {
 		for(int x = 0; x < col.size(); x++)
 		{
 			//its minus one because arrays start at zero
-			board[col.get(x)][row.get(x)] = 1;//add queens to board
+			board[col.get(x) - 1][row.get(x) - 1] = 1;//add queens to board
 		}
 		board[0][0] = 1;
 		//solution = print(board, boardSize);
+		int solutionBoard[][] = placeQueenStack(board, boardSize, col);
 		
 		return solution;
 	}
 	//solves NQueens using stacks
 	//input: a board with some preplaced queens, size of board, and the columns of preplaced queens
 	//output: a solved board (2-d arrays with 1's and 0's
-	public static int[][] placeQueenStack(int[][] board, int size, ArrayList<Integer> col)
+	public static int[][] placeQueenStack(int[][] board, int size, List<Integer> column)
 	{
-		//make a stack
-		Stack s = new Stack();
+		//make two stacks of ints
+		//one contains the row, the other column
+		Stack<Integer> row  = new Stack<Integer>();
+		Stack<Integer> col  = new Stack<Integer>();
+		//output board
 		int[][] output = board;
+		int row_counter = 0, col_counter = 0;
+		System.out.println(print(board, size));
+		//program runs until all columns are filled
+		while(col_counter < size)
+		{
+			//ignores placing queens in a pre-placed column
+			for(int x : column)
+			{
+				if(x == col_counter)
+				{
+					//if a queen is already in that column, break the for loop and ignore that row
+					col_counter++;
+					break; 
+				}
+			}
+			
+			
+			col_counter++;
+		}
 		
 		
 		return output;
