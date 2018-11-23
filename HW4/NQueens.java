@@ -207,7 +207,12 @@ public class NQueens {
 		solution = print(board, boardSize);
 		int solutionBoard[][] = placeQueenStack(board, boardSize, col);
 		
-		return solution;
+		//if no solution
+		if(solutionBoard[0][0] == 200331)
+		{
+			return "No Solution";
+		}
+		return print(solutionBoard, boardSize);
 	}
 	//solves NQueens using stacks
 	//input: a board with some preplaced queens, size of board, and the columns of preplaced queens
@@ -230,7 +235,7 @@ public class NQueens {
 			p++;
 			//delay for lols
 			try {
-				Thread.sleep(300);
+				Thread.sleep(10);
 			}
 			catch (InterruptedException e)
 			{
@@ -241,10 +246,10 @@ public class NQueens {
 			for(int x : column)
 			{
 				x--; //because arrays start at one lol
-				System.out.println("help please: " + x + " or " + col_counter);
+				//System.out.println("help please: " + x + " or " + col_counter);
 				if(x == col_counter)
 				{
-					System.out.println("TRIGGERED");
+					//System.out.println("TRIGGERED");
 					//if a queen is already in that column, break the for loop and ignore that row
 					col_counter++;
 					break; 
@@ -252,17 +257,17 @@ public class NQueens {
 			}
 			//exit condition
 			//if every column is filled
-			if(col_counter > size)
+			if(col_counter >= size)
 			{
 				julian = false;
 				break;
 			}
 			// try to push a queen onto the stack and a given position
-			//System.out.println("foo: " + p + " " + col_counter + row_counter);
+			System.out.println("foo: " + p + " " + col_counter + "," +row_counter);
 			if (safe(col_counter, row_counter, output, size) == true) {
 				row.push(row_counter);
 				col.push(col_counter);
-				output[col_counter][row_counter] = 1; // place queen on board
+				output[col_counter][row_counter] = 1; // place queen on 2d array board
 				col_counter++;
 				row_counter = 0;
 				// fail = 0;
@@ -272,30 +277,46 @@ public class NQueens {
 			//System.out.println("value of row: " + row_counter);
 			// if not safe, increment the row by one
 			row_counter++;
-			// check if row_counter exceeds the board size now
-			if (row_counter > size) {
-				// check for empty stack, if there is one, return a failure
-				if (row.empty() && col.empty()) {
-					output[0][0] = 200331; // totally random number with zero significance
-					julian = false;
-					break;
+			while(true) //professionally avoiding go-to statements
+			{
+				// check if row_counter exceeds the board size now
+				if (row_counter >= size) {
+					// check for empty stack, if there is one, return a failure
+					if (row.empty() && col.empty()) {
+						System.out.println("exit");
+						output[0][0] = 200331; // totally random number with zero significance
+						julian = false;
+						break;
+					}
+					// otherwise, backtrack
+					else {
+						// pop last value from stack
+						fail = row.peek();
+						System.out.println("popping" + col.peek() + " " +row.peek());
+						output[col.pop()][row.pop()] = 0;
+						// backtrack
+						col_counter--;
+						// try a new row
+						row_counter = fail + 1;
+						System.out.println("start on row: " + row_counter + " col: " + col_counter);
+						//if last queen placed was on the last row,
+						//pop again
+						if(row_counter >= size)
+						{
+							continue;
+						}
+						//otherwise, go on as normal
+						break;
+
+					}
 				}
-				// otherwise, backtrack
-				else {
-					// pop last value from stack
-					fail = row.peek();
-					//System.out.println("wweeee" + row.peek());
-					output[col.pop()][row.pop()] = 0;
-					// backtrack
-					col_counter--;
-					// try a new row
-					row_counter = fail + 1;
-					System.out.println("start on row: " + row_counter);
-				}
+				break;
 			}
+
 		}
 		return output;
 	}
+		
 	
 	
 	//prints a visualization of the board
@@ -373,7 +394,8 @@ public class NQueens {
 		 
 		
 		// TESTING CORNER
-		String input = "11 4 4 6 3";
+		//String input = "11 4 4 6 3";
+		String input = "8 1 1 3 5";
 		System.out.println(findSolution_v2(input));
 	}
 }
