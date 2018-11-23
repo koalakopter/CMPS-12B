@@ -11,6 +11,7 @@ import java.io.*;
 import java.util.*; //for stacks
 import static java.lang.System.out;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 //places queens from col 1 -> col N
 public class NQueens {
@@ -200,7 +201,7 @@ public class NQueens {
 			//its minus one because arrays start at zero
 			board[col.get(x) - 1][row.get(x) - 1] = 1;//add queens to board
 		}
-		board[0][0] = 1;
+		//board[0][0] = 1;
 		//solution = print(board, boardSize);
 		int solutionBoard[][] = placeQueenStack(board, boardSize, col);
 		
@@ -220,8 +221,12 @@ public class NQueens {
 		int row_counter = 0, col_counter = 0;
 		System.out.println(print(board, size));
 		//program runs until all columns are filled
-		while(col_counter < size)
+		boolean julian = true; //arbitrary boolean to make the loop repeat
+		int p = 0, fail = 0;
+		while(julian)
 		{
+			p++;
+			System.out.println("foo: " + p + " " + col_counter + row_counter);
 			//ignores placing queens in a pre-placed column
 			for(int x : column)
 			{
@@ -232,12 +237,49 @@ public class NQueens {
 					break; 
 				}
 			}
-			
-			
-			col_counter++;
+			//exit condition
+			//if every column is filled
+			if(col_counter > size)
+			{
+				julian = false;
+				break;
+			}
+			//try to push a queen onto the stack and a given position
+			if(safe(col_counter, row_counter, output, size) == true)
+			{
+				row.push(row_counter);
+				col.push(col_counter);
+				output[col_counter][row_counter] = 1; //place queen on board
+				col_counter++;
+				row_counter = 0;
+				fail = 0;
+				continue;
+			}
+			//if not safe, increment the row by one
+			row_counter++;
+			//check if row_counter exceeds the board size now
+			if(row_counter > size)
+			{
+				//check for empty stack, if there is one, return a failure
+				if(row.empty() && col.empty())
+				{
+					output[0][0] = 200331; //totally random number with zero significance
+					julian = false;
+					break;
+				}
+				//otherwise, backtrack
+				else
+				{
+					//pop last value from stack
+					output[col.pop()][row.pop()] = 0;
+					//backtrack
+					col_counter--;
+					//try a new row
+					fail++;
+					row_counter = 0 + fail;
+				}
+			}
 		}
-		
-		
 		return output;
 	}
 	
