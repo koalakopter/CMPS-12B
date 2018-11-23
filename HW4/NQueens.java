@@ -204,7 +204,9 @@ public class NQueens {
 		
 		//System.out.println(safe(3, 1, board, boardSize));
 		//board[3][1] = 1;
-		solution = print(board, boardSize);
+		//solution = print(board, boardSize);
+		
+		//*******SOLVES THE NQUEENS PROBLEM USING STACKS AND A BIT OF MAGIC*******//
 		int solutionBoard[][] = placeQueenStack(board, boardSize, col);
 		
 		//if no solution
@@ -212,7 +214,18 @@ public class NQueens {
 		{
 			return "No Solution";
 		}
-		return print(solutionBoard, boardSize);
+		else {
+			for (int i = 0; i < boardSize; i++) {
+				for (int j = 0; j < boardSize; j++) {
+					if (board[i][j] == 1) {
+						// its +1 for all results since arrays start at 0
+						solution = (solution + (i + 1) + " " + (j + 1) + " ");
+					}
+				}
+			}
+		}
+		return solution;
+		//return print(solutionBoard, boardSize);
 	}
 	//solves NQueens using stacks
 	//input: a board with some preplaced queens, size of board, and the columns of preplaced queens
@@ -226,7 +239,7 @@ public class NQueens {
 		//output board
 		int[][] output = board;
 		int row_counter = 0, col_counter = 0;
-		System.out.println(print(board, size));
+		//System.out.println(print(board, size));
 		//program runs until all columns are filled
 		boolean julian = true; //arbitrary boolean to make the loop repeat
 		int p = 0, fail = 0;
@@ -234,6 +247,7 @@ public class NQueens {
 		{
 			p++;
 			//delay for lols
+			/*
 			try {
 				Thread.sleep(10);
 			}
@@ -241,6 +255,7 @@ public class NQueens {
 			{
 				e.printStackTrace();
 			}
+			*/
 			//System.out.println("foo: " + p + " " + col_counter + row_counter);
 			//ignores placing queens in a pre-placed column
 			for(int x : column)
@@ -263,7 +278,7 @@ public class NQueens {
 				break;
 			}
 			// try to push a queen onto the stack and a given position
-			System.out.println("foo: " + p + " " + col_counter + "," +row_counter);
+			//System.out.println("foo: " + p + " " + col_counter + "," +row_counter);
 			if (safe(col_counter, row_counter, output, size) == true) {
 				row.push(row_counter);
 				col.push(col_counter);
@@ -271,7 +286,7 @@ public class NQueens {
 				col_counter++;
 				row_counter = 0;
 				// fail = 0;
-				System.out.println(print(output, size));
+				//System.out.println(print(output, size));
 				continue;
 			}
 			//System.out.println("value of row: " + row_counter);
@@ -279,11 +294,12 @@ public class NQueens {
 			row_counter++;
 			while(true) //professionally avoiding go-to statements
 			{
+				//System.out.println(print(output, size));
 				// check if row_counter exceeds the board size now
 				if (row_counter >= size) {
 					// check for empty stack, if there is one, return a failure
 					if (row.empty() && col.empty()) {
-						System.out.println("exit");
+						//System.out.println("exit");
 						output[0][0] = 200331; // totally random number with zero significance
 						julian = false;
 						break;
@@ -292,13 +308,27 @@ public class NQueens {
 					else {
 						// pop last value from stack
 						fail = row.peek();
-						System.out.println("popping" + col.peek() + " " +row.peek());
-						output[col.pop()][row.pop()] = 0;
-						// backtrack
+						//System.out.println("popping " + col.peek() + " " +row.peek());
+						output[col.pop()][row.pop()] = 0; //set the popped row and column back to zero
+						// backtrack a column (or two if the column had a pre-placed queen)
 						col_counter--;
+						for(int x : column)
+						{
+							x--; //because arrays start at one lol
+							//System.out.println("help please: " + x + " or " + col_counter);
+							if(x == col_counter)
+							{
+								//System.out.println("TRIGGERED");
+								//if a queen is already in that column, break the for loop and ignore that row
+								col_counter--;
+								break; 
+							}
+						}
+						
+						
 						// try a new row
 						row_counter = fail + 1;
-						System.out.println("start on row: " + row_counter + " col: " + col_counter);
+						//System.out.println("start on col: " + col_counter + " row: " + row_counter);
 						//if last queen placed was on the last row,
 						//pop again
 						if(row_counter >= size)
@@ -394,8 +424,8 @@ public class NQueens {
 		 
 		
 		// TESTING CORNER
-		//String input = "11 4 4 6 3";
-		String input = "8 1 1 3 5";
+		String input = "11 4 4 6 3";
+		//String input = "8 1 1 3 5";
 		System.out.println(findSolution_v2(input));
 	}
 }
