@@ -1,0 +1,18 @@
+Julian To
+CruzID: jcto
+Student ID: 1585002
+CMPS 12B
+HW4: NQueens w/ Stacks
+Looked for help online mainly about the built in Java libraries for stacks and lists. Mostly just reading documentation on how to use functions like peek() or pop(). Also consulted my dad for reviewing my pseudocode for the main stack function I wrote.
+
+FILES PROVIDED:
+NQueens.java
+Makefile
+README
+test-input.txt
+test-output.txt
+
+TO RUN:
+type "make"
+run the command "java -jar NQueens.jar <input file> <output file>"
+where input file consists of strings of an odd amount of numbers, with the first number being the size of the board, and subsequent pairs of numbers being the x and y coordinate of queens, all seperated by a space.
