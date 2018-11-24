@@ -64,7 +64,20 @@ public class NQueens {
 				return false;
 			}
 		}
-
+		//Sesh's diagonal check as backup
+		for(int a = 0; a < size; a++)
+		{
+			for(int b = 0; b < size; b++)
+			{
+				if(Math.abs(a - x) == Math.abs(b - y) && board[a][b] != 0)
+				{
+					//System.out.println("a and b: " + a + b + " x and y: " + x + y);
+					return false;
+				}
+			}
+		}
+		
+		
 		// if no attacks found, return true
 		// System.out.println("pass");
 		return true;
@@ -165,14 +178,13 @@ public class NQueens {
 		//int[] row = new int[13];
 		List<Integer> col = new ArrayList<>();
 		List<Integer> row = new ArrayList<>();
-		int queensToPlace = 0; //keeps track of how many queens need to be placed
 		for (String x : parse)
 		{
 			//reads the size of the board
 			if(count == 0)
 			{
 				boardSize = Integer.parseInt(x);
-				queensToPlace = boardSize; 
+				//queensToPlace = boardSize; 
 				count = 1;
 				continue;
 			}
@@ -188,7 +200,6 @@ public class NQueens {
 			{
 				row.add(Integer.parseInt(x));
 				count = 1;
-				queensToPlace--; //for every queen added to the board, need to place one less queen
 				continue;
 			}
 		}
@@ -198,8 +209,14 @@ public class NQueens {
 		//add queens to the board
 		for(int x = 0; x < col.size(); x++)
 		{
+			//check if the default pieces attack each other
+			if(safe(col.get(x) - 1, row.get(x) - 1, board, boardSize) != true)
+			{
+				return "No solution";
+			}
 			//its minus one because arrays start at zero
 			board[col.get(x) - 1][row.get(x) - 1] = 1;//add queens to board
+			
 		}
 		
 		//System.out.println(safe(3, 1, board, boardSize));
@@ -212,7 +229,7 @@ public class NQueens {
 		//if no solution
 		if(solutionBoard[0][0] == 200331)
 		{
-			return "No Solution";
+			return "No solution";
 		}
 		else {
 			for (int i = 0; i < boardSize; i++) {
@@ -224,6 +241,7 @@ public class NQueens {
 				}
 			}
 		}
+		//System.out.println(print(solutionBoard, boardSize));
 		return solution;
 		//return print(solutionBoard, boardSize);
 	}
@@ -346,8 +364,6 @@ public class NQueens {
 		}
 		return output;
 	}
-		
-	
 	
 	//prints a visualization of the board
 	public static String print(int[][] board, int boardSize)
@@ -371,7 +387,7 @@ public class NQueens {
 
 		// check number of command line arguments is at least 2
 
-	/*	
+		
 		if (args.length < 2) {
 			System.out.println("Usage: java -jar NQueens.jar <input file> <output file>");
 			System.exit(1);
@@ -381,11 +397,13 @@ public class NQueens {
 		// open files
 		Scanner in = new Scanner(new File(args[0]));
 		PrintWriter out = new PrintWriter(new FileWriter(args[1]));
-
+		
+		
 		// array to store values from parsing
-		int parse[] = new int[3];
-		int answer[] = new int[3];
-		int x = 0;
+		// int parse[] = new int[3];
+		// int answer[] = new int[3];
+		// int x = 0;
+		
 
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
@@ -396,37 +414,45 @@ public class NQueens {
 			String line = in.nextLine().trim() + " ";
 
 			// split line around white space
-			String[] token = line.split("\\s+");
+			//String[] token = line.split("\\s+");
+			String[] token = line.split("\\r?\\n\"");
 
 			int n = token.length;
 
-			/* OLD CODE FROM LAB 1
-			for (int i = 0; i < n; i++) {
-				// while(token.charAt(i) != " ");
-				// System.out.println("" + token[i]);
-				parse[x] = Integer.parseInt(token[i]);
-				//System.out.println("" + parse[X]);
-				x++;
-				if (x == 3) {
-					x = 0;
-					// if 3 values have been read in, find a solution
-					// size, col, row
-					out.println(findSolution(parse[0], parse[1], parse[2]));
-				}
-			}
+			// OLD CODE FROM LAB 1
+			// for (int i = 0; i < n; i++) {
+			// while(token.charAt(i) != " ");
+			// System.out.println("" + token[i]);
+			// parse[x] = Integer.parseInt(token[i]);
+			// System.out.println("" + parse[X]);
+			// x++;
+			// if (x == 3) {
+			// x = 0;
+			// if 3 values have been read in, find a solution
+			// size, col, row
+			// out.println(findSolution(parse[0], parse[1], parse[2]));
+
+			// }
+			// }
 			
+			for (int i = 0; i < n; i++) {
+				//System.out.println(token[i]);
+				out.println(findSolution_v2(token[i]));
+			}
 		}
+		
 		// close files
 		in.close();
 		out.close();
-	}
-	*/
-		 
 		
+	
+		/*
 		// TESTING CORNER
-		String input = "11 4 4 6 3";
-		//String input = "8 1 1 3 5";
+		//String input = "8 4 4 6 2";
+		String input = "8 4 4 6 4";
 		System.out.println(findSolution_v2(input));
+		*/
 	}
+	
 }
 
