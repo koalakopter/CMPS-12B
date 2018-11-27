@@ -212,6 +212,7 @@ public class NQueens {
 			//check if the default pieces attack each other
 			if(safe(col.get(x) - 1, row.get(x) - 1, board, boardSize) != true)
 			{
+				//System.out.println("bad input");
 				return "No solution";
 			}
 			//its minus one because arrays start at zero
@@ -222,6 +223,7 @@ public class NQueens {
 		//System.out.println(safe(3, 1, board, boardSize));
 		//board[3][1] = 1;
 		//solution = print(board, boardSize);
+		//System.out.println(print(board,boardSize));
 		
 		//*******SOLVES THE NQUEENS PROBLEM USING STACKS AND A BIT OF MAGIC*******//
 		int solutionBoard[][] = placeQueenStack(board, boardSize, col);
@@ -285,9 +287,11 @@ public class NQueens {
 					//System.out.println("TRIGGERED");
 					//if a queen is already in that column, break the for loop and ignore that row
 					col_counter++;
+					row_counter = 0; //set row counter back to zero if you skip that row
 					break; 
 				}
 			}
+			//System.out.println("foo: " + p + " " + col_counter + row_counter);
 			//exit condition
 			//if every column is filled
 			if(col_counter >= size)
@@ -449,7 +453,7 @@ public class NQueens {
 		/*
 		// TESTING CORNER
 		//String input = "8 4 4 6 2";
-		String input = "8 4 4 6 4";
+		String input = "5 1 2 2 4";
 		System.out.println(findSolution_v2(input));
 		*/
 	}
