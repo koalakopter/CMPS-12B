@@ -1,0 +1,6 @@
+//QUEUE.C
+//LAB 5: QUEUING A LIST OF INTS
+//JULIAN TO: JCTO
+//CMPS 12B
+
+#include queue.h
