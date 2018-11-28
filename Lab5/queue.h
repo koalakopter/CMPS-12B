@@ -12,10 +12,11 @@
 //this will contain each item in the list
 typedef struct NodeItem {
     struct NodeItem *nextItem;
+    struct NodeItem *prevItem;
     int data;
 } NodeItem;
 
-//this struct will contain the entire linked list
+//this struct will contain the entire linked list (maybe)
 typedef struct List
 {
     struct nodeItem *head; //head of the list
@@ -24,8 +25,8 @@ typedef struct List
 
 //all these functions returns chars since we need to print stuff to an output file
 
-char* enqueue(int x, List intList, char *output); //adds an int to the list
+char* enqueue(int x, NodeItem *item, char* output); //adds an int to the list
 
-char* print(List intList, char *output); //prints out whatever is in the queue
+char* print(NodeItem *item, char* output); //prints out whatever is in the queue
 
-char* dequeue(List intList, char *output); //dequeues the oldest value, returns "empty" if empty
+char* dequeue(NodeItem *item, char* output); //dequeues the oldest value, returns "empty" if empty
