@@ -18,6 +18,19 @@ List *newList()
     return new;
 }
 
+NodeItem *newNode(int *data)
+{
+    NodeItem *newItem = malloc(sizeof (NodeItem));
+    //check if malloc fails
+    if(newItem != NULL)
+    {
+        newItem->nextItem = NULL;
+        newItem->prevItem = NULL;
+        newItem->data = data;
+        return newItem;
+    }
+}
+
 //FIRST FUNCTION: ENQUEUE
 char* enqueue(int x, List *line, char* output)
 {
@@ -26,11 +39,12 @@ char* enqueue(int x, List *line, char* output)
     //if this is the first item in the list, make a new list
     if(item == NULL)
     {
-        struct NodeItem *newData;
+        NodeItem *newData = newNode(x);
         newData->data = x;
         newData->nextItem = NULL;
         newData->prevItem = NULL;
-        sprintf(output, "enqueued %d", x);
+        line->head = newData;
+        sprintf(output, "enqueued first %d", x);
         return output;
     }
     //first, go to the end of the list
@@ -38,17 +52,15 @@ char* enqueue(int x, List *line, char* output)
     {
         item = item->nextItem;
     }
-
     //makes a new NodeItem item
     //next item is null since its placed at the head
     //prev item is the end of the list
     //data is just the int you want to enqueue
-    struct NodeItem *newData;
+    NodeItem *newData = newNode(x);
     newData->data = x;
     newData->nextItem = NULL;
     newData->prevItem = item;
-
-    item->prevItem = newData;
+    item->nextItem = newData;
 
     //encodes the output
     //char output[69];
@@ -65,12 +77,14 @@ char* print(List *line, char* output)
     {
         sprintf(output, "");
     }
-    printf("here?");
+    printf("here?\n");
     //else go to the front of the list
+    /*
     while((item->prevItem) != NULL)
     {
         item = item->prevItem;
     }
+    */
     char temp[20]; //hopefully no numbers with more than 20 digits
 
     //once at the front, just print out the elements
@@ -79,8 +93,11 @@ char* print(List *line, char* output)
         printf("%d ", item->data);
         sprintf(temp, "%d ", item->data);
         strcat(output, temp);
-        item->nextItem;
+        item = item->nextItem;
     }
+    //print the last item in the list
+    printf("%d ", item->data);
+    sprintf(temp, "%d ", item->data);
     return output;
 }
 
@@ -94,14 +111,19 @@ int main()
     strcat(output, "I am YeTI");
     printf("%s",output);
     */
+    //TESTING WOOHOO
     int x = 50;
     int y = 40;
+    int z = 30;
     char output[69];
     List *myList = newList();
     sprintf(output, enqueue(x, myList, output));
     printf("%s\n", output);
     sprintf(output, enqueue(y, myList, output));
     printf("%s\n", output);
+    sprintf(output, enqueue(z, myList, output));
+    printf("%s\n", output);
+    printf("%d wheee\n", myList->head);
     sprintf(output, print(myList, output));
 
 }
