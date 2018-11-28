@@ -25,8 +25,8 @@ typedef struct List
 
 //all these functions returns chars since we need to print stuff to an output file
 
-char* enqueue(int x, NodeItem *item, char* output); //adds an int to the list
+char* enqueue(int x, List *line, char* output); //adds an int to the list
 
-char* print(NodeItem *item, char* output); //prints out whatever is in the queue
+char* print(List *line, char* output); //prints out whatever is in the queue
 
-char* dequeue(NodeItem *item, char* output); //dequeues the oldest value, returns "empty" if empty
+char* dequeue(List *line, char* output); //dequeues the oldest value, returns "empty" if empty

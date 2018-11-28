@@ -44,7 +44,7 @@ char* enqueue(int x, List *line, char* output)
         newData->nextItem = NULL;
         newData->prevItem = NULL;
         line->head = newData;
-        sprintf(output, "enqueued first %d", x);
+        sprintf(output, "enqueued %d\n", x);
         return output;
     }
     //first, go to the end of the list
@@ -64,10 +64,11 @@ char* enqueue(int x, List *line, char* output)
 
     //encodes the output
     //char output[69];
-    sprintf(output, "enqueued %d", x);
+    sprintf(output, "enqueued %d\n", x);
     return output;
 }
 
+//SECOND FUNCTION: PRINT THE LIST
 char* print(List *line, char* output)
 {
     NodeItem *item = line->head;
@@ -75,9 +76,10 @@ char* print(List *line, char* output)
     //if the list is empty, print nothing
     if (item == NULL)
     {
-        sprintf(output, "");
+        sprintf(output, "%s\n", output);
+        return output;
     }
-    printf("here?\n");
+    //printf("here?\n");
     //else go to the front of the list
     /*
     while((item->prevItem) != NULL)
@@ -87,19 +89,51 @@ char* print(List *line, char* output)
     */
     char temp[20]; //hopefully no numbers with more than 20 digits
 
+    //clear output string?
+    sprintf(output, "");
     //once at the front, just print out the elements
     while((item->nextItem) != NULL)
     {
-        printf("%d ", item->data);
+        //printf("%d ", item->data);
         sprintf(temp, "%d ", item->data);
+        //printf("%s\n", temp);
         strcat(output, temp);
+        //printf("%s\n", output);
         item = item->nextItem;
     }
     //print the last item in the list
-    printf("%d ", item->data);
-    sprintf(temp, "%d ", item->data);
+    //printf("%d ", item->data);
+    sprintf(temp, "%d\n", item->data);
+    strcat(output, temp);
+
+    //printf("output of print: %s", output);
+    //sprintf(output, "why %s", output);
     return output;
 }
+
+//LAST FUNCTION: DEQUEUE AN INT
+//(the oldest one put in)
+char* dequeue(List *line, char* output) //dequeues the oldest value, returns "empty" if empty
+{
+    //printf("fuggggg\n");
+
+    NodeItem *item = line->head;
+    //check for empty list first
+    if(item == NULL)
+    {
+        sprintf(output, "empty");
+        return output;
+    }
+    int value = item->data;
+    //next, dequeue the oldest int (the head)
+    line->head = item->nextItem; //set the head to the next Item on the List
+    item = item->nextItem->prevItem = NULL; //delete the next Item's way back to the deleted item
+
+    //return the data value
+    sprintf(output, "dequeue: %d\n", value);
+    return output;
+}
+
 
 //testing shtuff
 int main()
@@ -116,15 +150,29 @@ int main()
     int y = 40;
     int z = 30;
     char output[69];
+    //char output2[69];
     List *myList = newList();
-    sprintf(output, enqueue(x, myList, output));
-    printf("%s\n", output);
-    sprintf(output, enqueue(y, myList, output));
-    printf("%s\n", output);
-    sprintf(output, enqueue(z, myList, output));
-    printf("%s\n", output);
-    printf("%d wheee\n", myList->head);
     sprintf(output, print(myList, output));
+    /*
+    sprintf(output, dequeue(myList, output));
+    printf("%s\n", output);
+    */
+    //test enqueue
+    sprintf(output, enqueue(x, myList, output));
+    printf("%s", output);
+    sprintf(output, enqueue(y, myList, output));
+    printf("%s", output);
+    sprintf(output, enqueue(z, myList, output));
+    printf("%s", output);
+    //testing print
+    sprintf(output, print(myList, output));
+    printf("%s", output);
+    //testing dequeue
+    //printf("\ndequeue time\n");
+    sprintf(output, dequeue(myList, output));
+    printf("%s", output);
+    sprintf(output, print(myList, output));
+    printf("%s", output);
 
 }
 
