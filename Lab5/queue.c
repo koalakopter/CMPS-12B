@@ -3,19 +3,32 @@
 //JULIAN TO: JCTO
 //CMPS 12B
 
-#include "queue.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
+#include "queue.h"
+
+//structs
+//this will contain each item in the list
+
+typedef struct NodeItem {
+    struct NodeItem *nextItem;
+    struct NodeItem *prevItem;
+    int data;
+} NodeItem;
+
+struct queue {
+    NodeItem *head;
+};
+
 //HELPER FUNCTIONS
 //creates a new list to be used
-List *newList()
+queue *newList(void)
 {
-    List *new = malloc(sizeof(List));
-    new->head = NULL;
-    return new;
+    queue *newQueue = malloc(sizeof(queue));
+    newQueue->head = NULL;
+    return newQueue;
 }
 
 NodeItem *newNode(int *data)
@@ -32,7 +45,7 @@ NodeItem *newNode(int *data)
 }
 
 //FIRST FUNCTION: ENQUEUE
-char* enqueue(int x, List *line, char* output)
+char* enqueue(int x, queue *line, char* output)
 {
     struct NodeItem *item;
     item = line->head;
@@ -69,7 +82,7 @@ char* enqueue(int x, List *line, char* output)
 }
 
 //SECOND FUNCTION: PRINT THE LIST
-char* print(List *line, char* output)
+char* print(queue *line, char* output)
 {
     NodeItem *item = line->head;
     //char output[900]; //I hope the list never gets this long lmao
@@ -113,7 +126,7 @@ char* print(List *line, char* output)
 
 //LAST FUNCTION: DEQUEUE AN INT
 //(the oldest one put in)
-char* dequeue(List *line, char* output) //dequeues the oldest value, returns "empty" if empty
+char* dequeue(queue *line, char* output) //dequeues the oldest value, returns "empty" if empty
 {
     //printf("fuggggg\n");
 
@@ -146,7 +159,7 @@ char* dequeue(List *line, char* output) //dequeues the oldest value, returns "em
 //handles 3 commands: enqueue, print, and dequeue
 //returns a formatted string
 //pass in the linkedList thing too
-char* process(char* input, List *line)
+char* process(char* input, queue *line)
 {
     char* split; //for splits
     char* output[99]; //output string
@@ -155,7 +168,7 @@ char* process(char* input, List *line)
     //printf("here?\n");
     //read in the command
     char command = input[0];
-    printf("input: %c\n", command);
+    //printf("input: %c\n", command);
     //enqueue
     if(command == 'e')
     {
@@ -169,7 +182,7 @@ char* process(char* input, List *line)
         }
 
         int number = atoi(numInput);
-        printf("number! %d\n", number);
+        //printf("number! %d\n", number);
         //return the output string
         sprintf(input, enqueue(number, line, output));
         return input;
@@ -210,7 +223,7 @@ int main()
     char output[69];
     printf("STARTING TESTS!!!\n");
     //char output2[69];
-    List *myList = newList();
+    queue *myList = newList();
 
     /*
     //test enqueue and dequeue

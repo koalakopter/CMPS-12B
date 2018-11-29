@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
 	char* output; //output string
 
 	//make the LinkedList
-	List *myList = newList();
+	queue *myList = newList();
     //stolen from Lab4
     line = calloc(ARBITRARY_LENGTH, sizeof(char));
     output = calloc(1000, sizeof(char));
