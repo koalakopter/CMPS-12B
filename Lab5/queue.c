@@ -76,7 +76,7 @@ char* print(List *line, char* output)
     //if the list is empty, print nothing
     if (item == NULL)
     {
-        sprintf(output, "%s\n", output);
+        sprintf(output, "\n");
         return output;
     }
     //printf("here?\n");
@@ -125,12 +125,20 @@ char* dequeue(List *line, char* output) //dequeues the oldest value, returns "em
         return output;
     }
     int value = item->data;
+
+    //if only one item in the list
+    if(item->nextItem == NULL && item->prevItem == NULL)
+    {
+        line->head = NULL;
+        sprintf(output, "%d\n", value);
+        return output;
+    }
     //next, dequeue the oldest int (the head)
     line->head = item->nextItem; //set the head to the next Item on the List
     item = item->nextItem->prevItem = NULL; //delete the next Item's way back to the deleted item
 
     //return the data value
-    sprintf(output, "dequeue: %d\n", value);
+    sprintf(output, "%d\n", value);
     return output;
 }
 
@@ -150,14 +158,24 @@ int main()
     int y = 40;
     int z = 30;
     char output[69];
+    printf("STARTING TESTS!!!\n");
     //char output2[69];
     List *myList = newList();
-    sprintf(output, print(myList, output));
-    /*
+
+    //test enqueue and dequeue
+    sprintf(output, enqueue(x, myList, output));
+    printf("%s", output);
+    sprintf(output, dequeue(myList, output));
+    printf("%s", output);
+
+    //print from empty list
     sprintf(output, dequeue(myList, output));
     printf("%s\n", output);
-    */
-    //test enqueue
+
+    //dequeue from empty list
+    sprintf(output, dequeue(myList, output));
+    printf("%s\n", output);
+
     sprintf(output, enqueue(x, myList, output));
     printf("%s", output);
     sprintf(output, enqueue(y, myList, output));
@@ -167,8 +185,6 @@ int main()
     //testing print
     sprintf(output, print(myList, output));
     printf("%s", output);
-    //testing dequeue
-    //printf("\ndequeue time\n");
     sprintf(output, dequeue(myList, output));
     printf("%s", output);
     sprintf(output, print(myList, output));
