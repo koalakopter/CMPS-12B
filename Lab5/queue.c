@@ -142,6 +142,71 @@ char* dequeue(List *line, char* output) //dequeues the oldest value, returns "em
     return output;
 }
 
+//process each individual line
+//handles 3 commands: enqueue, print, and dequeue
+//returns a formatted string
+//pass in the linkedList thing too
+char* process(char* input, List *line)
+{
+    char* split; //for splits
+    char* output[99]; //output string
+    split = strtok(input, " "); //split around the space
+    int x = 0; //incrementer
+    printf("here?\n");
+    while(split != NULL)
+    {
+        //printf("wheeeee %s", split);
+        //process the command
+        if(x == 0)
+        {
+            //enqueue
+            if(split == 'd')
+            {
+                x == 1;
+                continue;
+            }
+            //print
+            if(split == 'p')
+            {
+                x == 2;
+                continue;
+            }
+            //dequeue
+            if(split == 'e')
+            {
+                x == 3;
+                continue;
+            }
+        }
+        //do the command now
+        //enqueue
+        if(x == 1)
+        {
+            int input;
+            input = atoi(split);
+            printf("output of atoi: %d", input);
+            sprintf(output, enqueue(input, line, output));
+            printf("%s", output);
+            return output;
+        }
+        //print
+        if(x == 2)
+        {
+            sprintf(output, print(line, output));
+            return output;
+        }
+        //dequeue
+        if(x == 3)
+        {
+            sprintf(output, dequeue(line, output));
+            return output;
+        }
+    split = strtok(NULL, " ");
+    }
+    //this ought not to happen
+    return output;
+}
+
 
 //testing shtuff
 int main()
@@ -162,6 +227,7 @@ int main()
     //char output2[69];
     List *myList = newList();
 
+    /*
     //test enqueue and dequeue
     sprintf(output, enqueue(x, myList, output));
     printf("%s", output);
@@ -189,6 +255,20 @@ int main()
     printf("%s", output);
     sprintf(output, print(myList, output));
     printf("%s", output);
+    */
+
+    //testing with actual inputs now
+    char test[20] = "e 50";
+    char test2[20] = "e 42";
+    char test3[3] = "p";
+
+    sprintf(output, process(test, myList));
+    printf("%s", output);
+    sprintf(output, process(test2, myList));
+    printf("%s", output);
+    sprintf(output, process(test3, myList));
+    printf("%s", output);
+
 
 }
 
