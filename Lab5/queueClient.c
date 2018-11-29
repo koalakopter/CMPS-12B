@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
 	//reads lines in while they still exist
 	while (fgets(line, ARBITRARY_LENGTH, in) != NULL) {
         sprintf(output, process(line, myList));
-        fprintf(out, "%s/n", output);
+        fprintf(out, "%s", output);
 	}
 
 	/* close input and output files */

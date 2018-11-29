@@ -134,7 +134,7 @@ char* dequeue(queue *line, char* output) //dequeues the oldest value, returns "e
     //check for empty list first
     if(item == NULL)
     {
-        sprintf(output, "empty");
+        sprintf(output, "empty\n");
         return output;
     }
     int value = item->data;
