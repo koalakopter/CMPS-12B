@@ -1,0 +1,14 @@
+Julian To
+jcto@ucsc.edu
+Lab 5: queueClient.c
+
+FiLes included:
+queue.h
+queue.c
+queueClient.c
+README
+Makefile
+test-input.txt
+test-output.txt
+
+Looked up a bunch of stuff about more documentation, especially about how to format header files. I also consulted and based this lab off of one of my old labs from CE13, Lab5 which was about LinkedLists. I changed some stuff though so it ended up being pretty different though. I also looked up a lot of stuff about how to make a correct Makefile.
