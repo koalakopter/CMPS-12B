@@ -200,14 +200,14 @@ char* process(char* input, queue *line)
         return input;
     }
     //this ought not to happen
-    printf("\nBAD INPUT\n");
+    //printf("\nBAD INPUT\n");
     sprintf(output, "BAD INPUT");
     return output;
 }
 
 
 //testing shtuff
-int main()
+int not_main()
 {
     /*
     int x = 5;
@@ -259,6 +259,7 @@ int main()
     char test[20] = "e 50";
     char test2[20] = "e 42";
     char test3[3] = "p";
+    char test4[3] = "d";
 
     sprintf(output, process(test, myList));
     printf("%s", output);
@@ -266,7 +267,11 @@ int main()
     printf("%s", output);
     sprintf(output, process(test3, myList));
     printf("%s", output);
-
+    sprintf(output, process(test4, myList));
+    printf("%s", output);
+    //print final result
+    sprintf(output, process(test3, myList));
+    printf("%s", output);
 
 }
 

@@ -7,26 +7,17 @@
 //PRINT: PRINT THE CURRENT QUEUE
 //DEQUEUE: DEQUEUES THE OLDEST INPUT AND REMOVES IT FROM THE LIST
 
-//this will contain each item in the list
-typedef struct NodeItem {
-    struct NodeItem *nextItem;
-    struct NodeItem *prevItem;
-    int data;
-} NodeItem;
-
 //this struct will contain the entire linked list (maybe)
-typedef struct List
-{
-    struct nodeItem *head; //head of the list
-} List;
+typedef struct queue queue;
 
+queue *newList(void);
 
 //all these functions returns chars since we need to print stuff to an output file
 
-char* enqueue(int x, List *line, char* output); //adds an int to the list
+char* enqueue(int x, queue *line, char* output); //adds an int to the list
 
-char* print(List *line, char* output); //prints out whatever is in the queue
+char* print(queue *line, char* output); //prints out whatever is in the queue
 
-char* dequeue(List *line, char* output); //dequeues the oldest value, returns "empty" if empty
+char* dequeue(queue *line, char* output); //dequeues the oldest value, returns "empty" if empty
 
 #endif // QUEUE_H_INCLUDED
