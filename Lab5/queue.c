@@ -273,5 +273,6 @@ int not_main()
     sprintf(output, process(test3, myList));
     printf("%s", output);
 
+    return 1;
 }
 

@@ -4,12 +4,12 @@
 //CMPS 12B
 //MAIN FILE
 
-//header file with all the things
-#include "queue.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+//header file with all the things
+#include "queue.h"
 
 #define ARBITRARY_LENGTH 50
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
     output = calloc(1000, sizeof(char));
 	//reads lines in while they still exist
 	while (fgets(line, ARBITRARY_LENGTH, in) != NULL) {
-        sprintf(output, process(line, output));
+        sprintf(output, process(line, myList));
         fprintf(out, "%s/n", output);
 	}
 
@@ -56,5 +56,5 @@ int main(int argc, char* argv[]) {
 	fclose(in);
 	fclose(out);
 
-
+    return (EXIT_SUCCESS);
 }
