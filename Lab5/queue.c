@@ -150,60 +150,45 @@ char* process(char* input, List *line)
 {
     char* split; //for splits
     char* output[99]; //output string
-    split = strtok(input, " "); //split around the space
-    int x = 0; //incrementer
-    printf("here?\n");
-    while(split != NULL)
+    //split = strtok(input, " "); //split around the space
+
+    //printf("here?\n");
+    //read in the command
+    char command = input[0];
+    printf("input: %c\n", command);
+    //enqueue
+    if(command == 'e')
     {
-        //printf("wheeeee %s", split);
-        //process the command
-        if(x == 0)
+        char numInput[200]; //hope there are no 200 digit numbers lol
+        int x = 1; //incrementer
+        while(input[x+1] != NULL)
         {
-            //enqueue
-            if(split == 'd')
-            {
-                x == 1;
-                continue;
-            }
-            //print
-            if(split == 'p')
-            {
-                x == 2;
-                continue;
-            }
-            //dequeue
-            if(split == 'e')
-            {
-                x == 3;
-                continue;
-            }
+            //printf("reading: %c\n", input[x+1]);
+            numInput[x-1] = input[x+1]; //plus one b/c there is a space
+            x++;
         }
-        //do the command now
-        //enqueue
-        if(x == 1)
-        {
-            int input;
-            input = atoi(split);
-            printf("output of atoi: %d", input);
-            sprintf(output, enqueue(input, line, output));
-            printf("%s", output);
-            return output;
-        }
-        //print
-        if(x == 2)
-        {
-            sprintf(output, print(line, output));
-            return output;
-        }
-        //dequeue
-        if(x == 3)
-        {
-            sprintf(output, dequeue(line, output));
-            return output;
-        }
-    split = strtok(NULL, " ");
+
+        int number = atoi(numInput);
+        printf("number! %d\n", number);
+        //return the output string
+        sprintf(input, enqueue(number, line, output));
+        return input;
+    }
+    //print routine
+    else if(command == 'p')
+    {
+        sprintf(input, print(line, output));
+        return input;
+    }
+    //dequeue routine
+    else if(command == 'd')
+    {
+        sprintf(input, dequeue(line, output));
+        return input;
     }
     //this ought not to happen
+    printf("\nBAD INPUT\n");
+    sprintf(output, "BAD INPUT");
     return output;
 }
 
