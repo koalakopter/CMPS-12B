@@ -7,8 +7,6 @@
 //PRINT: PRINT THE CURRENT QUEUE
 //DEQUEUE: DEQUEUES THE OLDEST INPUT AND REMOVES IT FROM THE LIST
 
-#endif // QUEUE_H_INCLUDED
-
 //this will contain each item in the list
 typedef struct NodeItem {
     struct NodeItem *nextItem;
@@ -30,3 +28,5 @@ char* enqueue(int x, List *line, char* output); //adds an int to the list
 char* print(List *line, char* output); //prints out whatever is in the queue
 
 char* dequeue(List *line, char* output); //dequeues the oldest value, returns "empty" if empty
+
+#endif // QUEUE_H_INCLUDED
