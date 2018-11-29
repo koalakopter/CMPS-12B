@@ -116,7 +116,7 @@ char* print(queue *line, char* output)
     }
     //print the last item in the list
     //printf("%d ", item->data);
-    sprintf(temp, "%d\n", item->data);
+    sprintf(temp, "%d \n", item->data);
     strcat(output, temp);
 
     //printf("output of print: %s", output);
