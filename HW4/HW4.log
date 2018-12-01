@@ -1,4 +1,4 @@
-Start with 0.0 points.
+Checker passed. Start with 0.0 points.
 =================================
 5X5, 6X6, first column tests pass
 Passed HW4-tests/five-six-first-input.txt
@@ -16,6 +16,15 @@ Score is now 6.0
 Passed HW4-tests/ten-single-input.txt
 Score is now 7.0
 =============================================
-Timeout error in running java -jar NQueens.jar /home/vibin/Desktop/sesh/sesh/RoboGrader/Rubric/HW4-tests/six-eight-many-input.txt my_output.txt: Took more than 60 seconds
+Solution has failed on an input. This input is given in your solution folder.
+An example output is also given in your directory.Messages from verifier script follows. This should give some description of why your solution is incorrect.
+====================================
+For input: 6 3 3 4 1
+Your output (given below) has an incorrect number of entries, so it cannot be a full list of queen positions.
+3 3 4 1 5 4 6 2 
+
+FAIL
+
+===========================================
 Final score
 7
