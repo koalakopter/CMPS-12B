@@ -1,5 +1,16 @@
-Checker passed. Start with 2.0 points.
-=================================
-Error: file ChessBoard.jar is not created by running command make
-Final score
-2
+Checker has failed. Below is the log of the checker
+=============================================
+File Makefile found
+File README found
+File test-input.txt found
+File test-output.txt found
+======================================
+All files are present in folder. Good!
+======================================
+Deleting ChessBoard.jar
+make: ran successfully
+Error: Executable ChessBoard.jar is not created by running command make
+FAIL
+==================================================
+Final score:
+0
