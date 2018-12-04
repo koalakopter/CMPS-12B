@@ -47,9 +47,17 @@ public class Bard {
 			for (String x : shake_token)
 			{
 				x = x.toLowerCase();
-				
+				words.add(new Word(x));
 			}
 		}
+		/*
+		//le test
+		//901,724 words btw
+		for (Word x : words)
+		{
+			out.println(x.phrase);
+		}
+		*/
 		
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
