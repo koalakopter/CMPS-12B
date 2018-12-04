@@ -80,29 +80,32 @@ public class Bard {
 		
 		for(Word w : words)
 		{
-			//check if we have counted a word yet
 			//31504 unique words wtf my computer is dying
+			//check if we have counted a word yet
 			if(frequency.containsKey(w.phrase) == false)
 			{
-				//meme++;
+				
 				//System.out.println(w.phrase + "   " + meme);
 				//number of times a word appeared
 				int count = 0;
 				//double for loop counts the times that word has appeared
-				for(Word t : words)
+				for(int inner = meme; inner < words.size(); inner++)
 				{
 					//System.out.println("WE MUST GO FURTHER " + meme);
 					//meme++;
 					//check if the words are equal, then count up
-					if(t.phrase.equals(w.phrase))
+					if(words.get(inner).phrase.equals(w.phrase))
 					{
 						count++;
 					}
 				}
+				
 				//then add stuff to hashtable
 				length.put(w.phrase, w.length);
 				frequency.put(w.phrase, count);
 			}
+			//check where we are on the list for efficiency
+			meme++;
 		}
 		
 		//TEST ZONE
