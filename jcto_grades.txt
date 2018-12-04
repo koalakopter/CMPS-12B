@@ -1,7 +1,7 @@
 Here is a list of your scores for all assignments, with the weight for each assignment
 For assignments that are not graded, your score will be zero. So don't freak out :)
 HW1 = 10.0, weight = 1.2
-HW2 = 2.0, weight = 1.2
+HW2 = 4.0, weight = 1.2
 HW3 = 10.0, weight = 1.2
 HW4 = 7.0, weight = 1.2
 HW5 = 0.0, weight = 1.2
@@ -12,4 +12,4 @@ Lab4 = 10.0, weight = 0.4
 Lab5 = 0.0, weight = 0.4
 Midterm1 = 7.4, weight = 1.25
 Midterm2 = 0.0, weight = 1.0
-Total = 60.05
+Total = 62.45
