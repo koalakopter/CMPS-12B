@@ -40,8 +40,20 @@ public class Bard {
 		{
 			//like reading the input, but with shakespeare instead
 			String shake_line = shakespeare.nextLine().trim() + " "; 
-			 //split around punctuation and white space
-			String[] shake_token = shake_line.split("[\\s\\?\\,\\.\\!\\:\\;\\[\\]]+");
+			 //replace each special character with whitespace
+			//shake_line = shake_line.replaceAll("\\?\\,\\.\\:\\;\\[\\]", " ");
+			
+			shake_line = shake_line.replaceAll("\\?", " ");
+			shake_line = shake_line.replaceAll("\\,", " ");
+			shake_line = shake_line.replaceAll("\\.", " ");
+			shake_line = shake_line.replaceAll("\\!", " ");
+			shake_line = shake_line.replaceAll("\\:", " ");
+			shake_line = shake_line.replaceAll("\\;", " ");
+			shake_line = shake_line.replaceAll("\\[", " ");
+			shake_line = shake_line.replaceAll("\\]", " ");
+			
+			String[] shake_token = shake_line.trim().split("\\s+"); //split around white space
+			//String[] shake_token = shake_line.split("[\\s\\?\\,\\.\\!\\:\\;\\[\\]]+");
 			
 			//lowercases all tokens
 			//and puts them into an Array List for good measure?
@@ -50,22 +62,33 @@ public class Bard {
 				x = x.toLowerCase();
 				//constructors are string and length of string
 				words.add(new Word(x, x.length()));
+			
 			}
 		}
 		
-		//loops through ArrayList and adds words
+		for (Word f : words)
+		{
+			out.println(f.phrase);
+		}
+		
+		System.out.println("Done " + words.size());
+		int meme = 0;
+		//loops through ArrayList and adds words to Hashtable
+		/*
 		for(Word w : words)
 		{
-			//number of times a word appeared
-			int count = 0;
 			//check if we have counted a word yet
-			if(frequency.containsKey(w) == false)
+			if(frequency.containsKey(w.phrase) == false)
 			{
+				//number of times a word appeared
+				int count = 0;
 				//double for loop counts the times that word has appeared
 				for(Word t : words)
 				{
+					//System.out.println("WE MUST GO FURTHER " + meme);
+					//meme++;
 					//check if the words are equal, then count up
-					if(t.equals(w))
+					if(t.phrase.equals(w.phrase))
 					{
 						count++;
 					}
@@ -75,20 +98,10 @@ public class Bard {
 				frequency.put(w.phrase, count);
 			}
 		}
-		/*
-		//le test
-		//901,724 words btw
-		int wa2k = 0;
-		for (Word x : words)
-		{
-			out.println(x.phrase);
-			if(x.phrase.equals("business"))
-			{
-				wa2k++;
-			}
-		}
-		System.out.println("this word appeared: " + wa2k + " times");
 		*/
+		//TEST ZONE
+		System.out.println("YEET");
+		//System.out.println("wheee" + length.get(9));
 		
 		
 		

@@ -15,6 +15,7 @@ class Word {
 	}
 	//constructor
 	public Word(String input, int letters)
+	//public Word(String input)
 	{
 		this.phrase = input;
 		this.length = letters;
