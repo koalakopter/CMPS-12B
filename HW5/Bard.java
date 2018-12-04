@@ -66,20 +66,26 @@ public class Bard {
 			}
 		}
 		
+		/*
+		//check if words were read right
 		for (Word f : words)
 		{
 			out.println(f.phrase);
 		}
+		*/
 		
 		System.out.println("Done " + words.size());
 		int meme = 0;
 		//loops through ArrayList and adds words to Hashtable
-		/*
+		
 		for(Word w : words)
 		{
 			//check if we have counted a word yet
+			//31504 unique words wtf my computer is dying
 			if(frequency.containsKey(w.phrase) == false)
 			{
+				//meme++;
+				//System.out.println(w.phrase + "   " + meme);
 				//number of times a word appeared
 				int count = 0;
 				//double for loop counts the times that word has appeared
@@ -98,7 +104,7 @@ public class Bard {
 				frequency.put(w.phrase, count);
 			}
 		}
-		*/
+		
 		//TEST ZONE
 		System.out.println("YEET");
 		//System.out.println("wheee" + length.get(9));
