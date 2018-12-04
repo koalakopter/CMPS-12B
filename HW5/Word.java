@@ -1,6 +1,7 @@
 //word object that stores a word
 class Word {
 	String phrase; //the word stored
+	int length; //length of said word
 
 	public String getWord()
 	{
@@ -13,9 +14,10 @@ class Word {
 		return false;
 	}
 	//constructor
-	public Word(String input)
+	public Word(String input, int letters)
 	{
 		this.phrase = input;
+		this.length = letters;
 	}
 	
 

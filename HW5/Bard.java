@@ -28,6 +28,7 @@ public class Bard {
 		
 		//new Hashtables
 		//one stores frequency, the other the length
+		//hashtable constructor is key, value
 		Hashtable <String, Integer> frequency = new Hashtable<String, Integer> ();
 		Hashtable <String, Integer> length = new Hashtable<String, Integer> ();
 		
@@ -47,17 +48,49 @@ public class Bard {
 			for (String x : shake_token)
 			{
 				x = x.toLowerCase();
-				words.add(new Word(x));
+				//constructors are string and length of string
+				words.add(new Word(x, x.length()));
+			}
+		}
+		
+		//loops through ArrayList and adds words
+		for(Word w : words)
+		{
+			//number of times a word appeared
+			int count = 0;
+			//check if we have counted a word yet
+			if(frequency.containsKey(w) == false)
+			{
+				//double for loop counts the times that word has appeared
+				for(Word t : words)
+				{
+					//check if the words are equal, then count up
+					if(t.equals(w))
+					{
+						count++;
+					}
+				}
+				//then add stuff to hashtable
+				length.put(w.phrase, w.length);
+				frequency.put(w.phrase, count);
 			}
 		}
 		/*
 		//le test
 		//901,724 words btw
+		int wa2k = 0;
 		for (Word x : words)
 		{
 			out.println(x.phrase);
+			if(x.phrase.equals("business"))
+			{
+				wa2k++;
+			}
 		}
+		System.out.println("this word appeared: " + wa2k + " times");
 		*/
+		
+		
 		
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
