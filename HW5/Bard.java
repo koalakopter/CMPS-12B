@@ -8,6 +8,24 @@ import java.io.*;
 import java.util.*;
 
 public class Bard {
+	//parses the input to return an output solution
+	public static String parse(String input)
+	{
+		//first split around whitespace
+		String split[] = input.split("\\s+");
+		
+		int comm_frequency = Integer.parseInt(split[1]);
+		int comm_length = Integer.parseInt(split[0]);
+		
+		//error checking
+		if(comm_length <= 0 || comm_frequency <= -1)
+		{
+			return "-";
+		}
+		
+		
+		return "-";
+	}
 
 	//main function that parses strings
 	public static void main(String[] args) throws IOException {
@@ -77,7 +95,7 @@ public class Bard {
 		System.out.println("Done " + words.size());
 		int meme = 0;
 		//loops through ArrayList and adds words to Hashtable
-		
+		/*
 		for(Word w : words)
 		{
 			//31504 unique words wtf my computer is dying
@@ -105,13 +123,16 @@ public class Bard {
 				frequency.put(w.phrase, count);
 			}
 			//check where we are on the list for efficiency
+			//saves 90 seconds btw
 			meme++;
 		}
 		
 		//TEST ZONE
 		System.out.println("YEET");
-		//System.out.println("wheee" + length.get(9));
-		
+		System.out.println("wheee " + frequency.get("the"));
+		System.out.println("meme " + frequency.get("personal"));
+		System.out.println("uhhh " + frequency.get(words.get(52230).phrase));
+		*/
 		
 		
 		// read lines from in, extract and print tokens from each line
@@ -131,7 +152,7 @@ public class Bard {
 
 			
 			for (int i = 0; i < n; i++) {
-
+				System.out.println(parse(token[i]));
 			}
 		}
 		
