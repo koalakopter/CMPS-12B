@@ -4,6 +4,7 @@
 //Jcto@ucsc.edu
 
 //import things I might need
+import java.awt.List;
 import java.io.*;
 import java.util.*;
 
@@ -25,6 +26,37 @@ public class Bard {
 		
 		
 		return "-";
+	}
+	
+	//places words in appropriate places
+	//inputs are an ArrayList and the generated Hashtable
+	public static ArrayList<ArrayList<String>> 
+		place(ArrayList<ArrayList<String>> input, Hashtable<String, Integer> hash)
+	{
+		//adds each element in the Hashtable to the ArrayList
+		Set<String> keys = hash.keySet();
+		int length = 0;
+		for(String s : keys)
+		{
+			System.out.println("what?");
+			length = s.length();
+			//if ArrayList (outer value), or length, doesn't exist, add it
+			try
+			{
+				input.get(length);
+			}
+			catch (IndexOutOfBoundsException e)
+			{
+				ArrayList <String> inner = new ArrayList<String>();
+				input.add(length, inner);
+				inner.add(s);
+				continue;
+			}
+			//if the outer value does exist, just add the String into the inner Linked List
+			input.get(length).add(s);
+		}
+		
+		return input;
 	}
 
 	//main function that parses strings
@@ -48,7 +80,6 @@ public class Bard {
 		//one stores frequency, the other the length
 		//hashtable constructor is key, value
 		Hashtable <String, Integer> frequency = new Hashtable<String, Integer> ();
-		Hashtable <String, Integer> length = new Hashtable<String, Integer> ();
 		
 		//ArrayList of word objects
 		ArrayList <Word> words = new ArrayList<Word>();
@@ -93,9 +124,8 @@ public class Bard {
 		*/
 		
 		System.out.println("Done " + words.size());
-		int meme = 0;
 		//loops through ArrayList and adds words to Hashtable
-		
+		//int meme = 0;
 		for(Word w : words)
 		{
 			//31504 unique words wtf my computer is dying
@@ -103,7 +133,6 @@ public class Bard {
 			//if we have, update the existing key
 			if(frequency.containsKey(w.phrase) == true)
 			{
-				meme++;
 				int count = frequency.get(w.phrase);
 				//System.out.println(count + " ");
 				frequency.put(w.phrase, count+1); //if the word is present, we increase the count by 1
@@ -111,17 +140,22 @@ public class Bard {
 			}
 			//if not present, initialize the key phrase with value 1, (cause it appeared once)
 			else {
+				//meme++;
 				frequency.put(w.phrase, 1);
 			}
 		}
 		
 		//TEST ZONE
-		System.out.println("YEET" + meme);
+		//System.out.println("YEET " + meme);
 		System.out.println("wheee " + frequency.get("the"));
 		System.out.println("meme " + frequency.get("personal"));
-		System.out.println("uhhh " + frequency.get(words.get(52230).phrase));
 		
+		//now we put everything in a 2d LINKED LIST
+		//first list (outer Linked List) will be the length of the string
+		//second list (inner Linked List) will contain the words in lexicographic order
+		ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
 		
+		outer = place(outer, frequency);
 		
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
