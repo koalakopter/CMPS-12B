@@ -95,44 +95,32 @@ public class Bard {
 		System.out.println("Done " + words.size());
 		int meme = 0;
 		//loops through ArrayList and adds words to Hashtable
-		/*
+		
 		for(Word w : words)
 		{
 			//31504 unique words wtf my computer is dying
 			//check if we have counted a word yet
-			if(frequency.containsKey(w.phrase) == false)
+			//if we have, update the existing key
+			if(frequency.containsKey(w.phrase) == true)
 			{
+				meme++;
+				int count = frequency.get(w.phrase);
+				//System.out.println(count + " ");
+				frequency.put(w.phrase, count+1); //if the word is present, we increase the count by 1
 				
-				//System.out.println(w.phrase + "   " + meme);
-				//number of times a word appeared
-				int count = 0;
-				//double for loop counts the times that word has appeared
-				for(int inner = meme; inner < words.size(); inner++)
-				{
-					//System.out.println("WE MUST GO FURTHER " + meme);
-					//meme++;
-					//check if the words are equal, then count up
-					if(words.get(inner).phrase.equals(w.phrase))
-					{
-						count++;
-					}
-				}
-				
-				//then add stuff to hashtable
-				length.put(w.phrase, w.length);
-				frequency.put(w.phrase, count);
 			}
-			//check where we are on the list for efficiency
-			//saves 90 seconds btw
-			meme++;
+			//if not present, initialize the key phrase with value 1, (cause it appeared once)
+			else {
+				frequency.put(w.phrase, 1);
+			}
 		}
 		
 		//TEST ZONE
-		System.out.println("YEET");
+		System.out.println("YEET" + meme);
 		System.out.println("wheee " + frequency.get("the"));
 		System.out.println("meme " + frequency.get("personal"));
 		System.out.println("uhhh " + frequency.get(words.get(52230).phrase));
-		*/
+		
 		
 		
 		// read lines from in, extract and print tokens from each line
