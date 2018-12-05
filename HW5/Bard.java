@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Bard {
 	//parses the input to return an output solution
-	public static String parse(String input)
+	public static String parse(String input, ArrayList<ArrayList<String>> sortedList)
 	{
 		//first split around whitespace
 		String split[] = input.split("\\s+");
@@ -23,9 +23,15 @@ public class Bard {
 		{
 			return "-";
 		}
-		
-		
-		return "-";
+		//check if such a word length/frequency can exist
+		if(sortedList.get(comm_length).size() <= comm_frequency)
+		{
+			return "-";
+		}
+		else {
+			return sortedList.get(comm_length).get(comm_frequency);
+		}
+		//return "-";
 	}
 	
 	//places words in appropriate places
@@ -84,6 +90,7 @@ public class Bard {
 					//check for lexicographic order
 					else if(hash.get(s) == hash.get(input.get(length).get(iterate)))
 					{
+						//System.out.println("TRIGGERED");
 						if(s.compareTo(input.get(length).get(iterate)) > 0)
 						{
 							iterate++;
@@ -105,7 +112,7 @@ public class Bard {
 			}
 		}
 		//test
-		System.out.println("query: " + input.get(5).get(1));
+		//System.out.println("query: " + input.get(5).get(1));
 		return input;
 	}
 
@@ -173,7 +180,7 @@ public class Bard {
 		}
 		*/
 		
-		System.out.println("Done " + words.size());
+		//System.out.println("Done " + words.size());
 		int max_length = 0; //max length of any word
 		
 		//loops through ArrayList and adds words to Hashtable
@@ -203,15 +210,15 @@ public class Bard {
 		}
 		
 		//TEST ZONE
+		/*
 		System.out.println("YEET " + max_length);
 		System.out.println("wheee " + frequency.get("the"));
 		System.out.println("meme " + frequency.get("personal"));
 		
-		/*
 		Set <String> keys = frequency.keySet();
 		for (String s : keys)
 		{
-			out.println(s);
+			out.println(s + "   " + frequency.get(s));
 		}
 		*/
 		
@@ -221,6 +228,14 @@ public class Bard {
 		ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
 		
 		outer = place(outer, frequency, max_length);
+		
+		//TEST ZONE NUMBA TWO
+		//System.out.println("query: " + outer.get(3).get(5));
+		//System.out.println("query2 " + outer.get(26).size());
+		System.out.println("query: " + frequency.get("business"));
+		String koala = "personal";
+		String koala2 = "business";
+		System.out.println("query2: " + koala.compareTo(koala2));
 		
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
@@ -239,7 +254,8 @@ public class Bard {
 
 			
 			for (int i = 0; i < n; i++) {
-				System.out.println(parse(token[i]));
+				//System.out.println(parse(token[i], outer));
+				//out.println(parse(token[i], outer));
 			}
 		}
 		
