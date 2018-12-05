@@ -238,13 +238,14 @@ public class Bard {
 		outer = place(outer, frequency, max_length);
 		
 		//TEST ZONE NUMBA TWO
+		/*
 		//System.out.println("query: " + outer.get(3).get(5));
 		//System.out.println("query2 " + outer.get(26).size());
 		System.out.println("query: " + frequency.get("personal"));
 		String koala = "personal";
 		String koala2 = "business";
 		System.out.println("query2: " + koala.compareTo(koala2));
-		
+		*/
 		
 		int breakpoint = 0;
 		// read lines from in, extract and print tokens from each line
