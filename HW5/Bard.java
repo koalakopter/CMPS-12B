@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Bard {
 	//parses the input to return an output solution
-	public static String parse(String input, ArrayList<ArrayList<String>> sortedList)
+	public static String parse(String input, ArrayList<ArrayList<String>> sortedList, int max)
 	{
 		//first split around whitespace
 		String split[] = input.split("\\s+");
@@ -19,7 +19,7 @@ public class Bard {
 		int comm_length = Integer.parseInt(split[0]);
 		
 		//error checking
-		if(comm_length <= 0 || comm_frequency <= -1)
+		if(comm_length <= 0 || comm_frequency <= -1 || comm_length > max)
 		{
 			return "-";
 		}
@@ -86,18 +86,26 @@ public class Bard {
 						iterate++;
 						continue;
 					}
-					//if the frequencies are equal or greater, 
+					//if the frequencies are equal, 
 					//check for lexicographic order
-					else if(hash.get(s) == hash.get(input.get(length).get(iterate)))
+					if(hash.get(s).equals(hash.get(input.get(length).get(iterate))))
 					{
-						//System.out.println("TRIGGERED");
-						if(s.compareTo(input.get(length).get(iterate)) > 0)
+						/*
+						if(s.equals("personal"))
 						{
+							System.out.println("please ");
+						}
+						*/
+						//System.out.println("TRIGGERED");
+						if(s.compareTo(input.get(length).get(iterate)) >= 0)
+						{
+							//System.out.println("TRIGGERED");
 							iterate++;
 							continue;
 						}
 						else
 						{
+							//System.out.println(s);
 							input.get(length).add(iterate, s);
 							break;
 						}
@@ -232,11 +240,13 @@ public class Bard {
 		//TEST ZONE NUMBA TWO
 		//System.out.println("query: " + outer.get(3).get(5));
 		//System.out.println("query2 " + outer.get(26).size());
-		System.out.println("query: " + frequency.get("business"));
+		System.out.println("query: " + frequency.get("personal"));
 		String koala = "personal";
 		String koala2 = "business";
 		System.out.println("query2: " + koala.compareTo(koala2));
 		
+		
+		int breakpoint = 0;
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
 			// lineNumber++; //what does this even do
@@ -254,8 +264,8 @@ public class Bard {
 
 			
 			for (int i = 0; i < n; i++) {
-				//System.out.println(parse(token[i], outer));
-				//out.println(parse(token[i], outer));
+				//System.out.println(parse(token[i], outer, max_length));
+				out.println(parse(token[i], outer, max_length));
 			}
 		}
 		
