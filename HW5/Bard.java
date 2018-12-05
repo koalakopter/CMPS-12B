@@ -4,7 +4,7 @@
 //Jcto@ucsc.edu
 
 //import things I might need
-import java.awt.List;
+//import java.awt.List;
 import java.io.*;
 import java.util.*;
 
@@ -29,33 +29,83 @@ public class Bard {
 	}
 	
 	//places words in appropriate places
-	//inputs are an ArrayList and the generated Hashtable
+	//inputs are an ArrayList, the generated Hashtable, and the length of the longest word
 	public static ArrayList<ArrayList<String>> 
-		place(ArrayList<ArrayList<String>> input, Hashtable<String, Integer> hash)
+		place(ArrayList<ArrayList<String>> input, Hashtable<String, Integer> hash, int longword)
 	{
 		//adds each element in the Hashtable to the ArrayList
-		Set<String> keys = hash.keySet();
 		int length = 0;
+		Set <String> keys = hash.keySet();
+		//make x array Lists inside the outer ArrayList, where x = longest word length
+		for(int i = 0; i <= longword; i++)
+		{
+			ArrayList<String> inner = new ArrayList<String>();
+			input.add(inner);
+		}
 		for(String s : keys)
 		{
-			System.out.println("what?");
 			length = s.length();
-			//if ArrayList (outer value), or length, doesn't exist, add it
-			try
+			//uh I guess we have blank entries, so we ignore those
+			if(length <= 0)
 			{
-				input.get(length);
-			}
-			catch (IndexOutOfBoundsException e)
-			{
-				ArrayList <String> inner = new ArrayList<String>();
-				input.add(length, inner);
-				inner.add(s);
 				continue;
 			}
-			//if the outer value does exist, just add the String into the inner Linked List
-			input.get(length).add(s);
+			
+			//if its the first item in the list, 
+			//place the string on the inner list with no problemo
+			if(input.get(length).size() == 0)
+			{
+				//System.out.println(s);
+				input.get(length).add(s);
+				continue;
+			}
+			//else add in a sorted manner
+			else
+			{
+				int iterate = 0;
+				//adds things to LinkedLists in a sorted manner
+				while(true)
+				{
+					//check for out of bounds cases
+					//aka if it reaches the end of the list, just add it
+					if(iterate >= input.get(length).size())
+					{
+						input.get(length).add(iterate, s);
+						break;
+					}
+					//first compare frequencies
+					//if word you are trying to add has a lower frequency, move to next element
+					if(hash.get(s) < hash.get(input.get(length).get(iterate)))
+					{
+						iterate++;
+						continue;
+					}
+					//if the frequencies are equal or greater, 
+					//check for lexicographic order
+					else if(hash.get(s) == hash.get(input.get(length).get(iterate)))
+					{
+						if(s.compareTo(input.get(length).get(iterate)) > 0)
+						{
+							iterate++;
+							continue;
+						}
+						else
+						{
+							input.get(length).add(iterate, s);
+							break;
+						}
+					}
+					//if its in the right place, just add it
+					else
+					{
+						input.get(length).add(iterate, s);
+						break;
+					}
+				}
+			}
 		}
-		
+		//test
+		System.out.println("query: " + input.get(5).get(1));
 		return input;
 	}
 
@@ -124,6 +174,8 @@ public class Bard {
 		*/
 		
 		System.out.println("Done " + words.size());
+		int max_length = 0; //max length of any word
+		
 		//loops through ArrayList and adds words to Hashtable
 		//int meme = 0;
 		for(Word w : words)
@@ -142,20 +194,33 @@ public class Bard {
 			else {
 				//meme++;
 				frequency.put(w.phrase, 1);
+				//finds the max length of any string (its 36 for Shakespeare.txt)
+				if(w.phrase.length() > max_length)
+				{
+					max_length = w.phrase.length();
+				}
 			}
 		}
 		
 		//TEST ZONE
-		//System.out.println("YEET " + meme);
+		System.out.println("YEET " + max_length);
 		System.out.println("wheee " + frequency.get("the"));
 		System.out.println("meme " + frequency.get("personal"));
+		
+		/*
+		Set <String> keys = frequency.keySet();
+		for (String s : keys)
+		{
+			out.println(s);
+		}
+		*/
 		
 		//now we put everything in a 2d LINKED LIST
 		//first list (outer Linked List) will be the length of the string
 		//second list (inner Linked List) will contain the words in lexicographic order
 		ArrayList<ArrayList<String>> outer = new ArrayList<ArrayList<String>>();
 		
-		outer = place(outer, frequency);
+		outer = place(outer, frequency, max_length);
 		
 		// read lines from in, extract and print tokens from each line
 		while (in.hasNextLine()) {
