@@ -1,0 +1,25 @@
+Julian To
+jcto@ucsc.edu
+CMPS 12B: HW 3 ChessMoves
+
+Provided Files:
+Bishop.java
+ChessBoard.java
+ChessMoves.java
+Chesspiece.java
+King.java
+Knight.java
+LinkedList.java
+Makefile
+Node.java
+Pawn.java
+Queen.java
+README
+Rook.java
+
+TO RUN:
+type "make"
+then "java -jar ChessMoves.jar <input.txt> <output.txt>
+
+HELP RECIEVED:
+Really only looked up how to use substring since I used that to parse instead of charAt. I also looked up how to remove all whitespace with the command replaceAll("\\s+", ""). Other than that, most of my code was just copied over from the previous assignment

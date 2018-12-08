@@ -74,12 +74,17 @@ public class NQueens {
 	public static boolean placeQueen(int board[][], int placedCol, int col, int size) {
 		// int[][] tempBoard = new int[size][size];
 		// end case (if all columns are filled)
+		// System.out.println("Recursive call! " + col);
+
 		if (col >= size) {
 			return true;
 		}
 		// ignores placing a queen in the column with the pre-placed queen
 		if (col == placedCol) {
 			col = col + 1;
+			if (col >= size) {
+				return true;
+			}
 		}
 		// i = rows
 		for (int i = 0; i < size; i++) {
@@ -99,14 +104,18 @@ public class NQueens {
 			}
 		}
 		// if no queen can be placed in a column
+		/*
+		 * for (int i = 0; i < size; i++) { for (int j = 0; j < size; j++) {
+		 * System.out.print(board[i][j] + " "); } System.out.println(); }
+		 * System.out.println("Returning false");
+		 */
 		return false;
 	}
 
 	// helper function that stores a local board and prints results from parsed
 	// strings
 	// to be used with placeQueen function
-	static String findSolution(int n, int row, int col) 
-	{
+	static String findSolution(int n, int row, int col) {
 		String answer = "";
 		// creates a 2D Array/Board of size n
 		int[][] board = new int[n][n];
@@ -132,17 +141,18 @@ public class NQueens {
 					}
 				}
 			}
-			 // new line to keep format correct
+			// new line to keep format correct
 		}
-		return answer; //returns the solution
+		return answer; // returns the solution
 	}
 
 	public static void main(String[] args) throws IOException {
 
-		//int lineNumber = 0;
+		// int lineNumber = 0;
 
 		// check number of command line arguments is at least 2
 
+		
 		if (args.length < 2) {
 			System.out.println("Usage: java -jar NQueens.jar <input file> <output file>");
 			System.exit(1);
@@ -175,7 +185,7 @@ public class NQueens {
 				// while(token.charAt(i) != " ");
 				// System.out.println("" + token[i]);
 				parse[x] = Integer.parseInt(token[i]);
-				//System.out.println("" + parse[x]);
+				//System.out.println("" + parse[X]);
 				x++;
 				if (x == 3) {
 					x = 0;
@@ -188,16 +198,12 @@ public class NQueens {
 		in.close();
 		out.close();
 	}
-	// System.out.println("help plz" + f);
-	// findSolution(7,3,2);
-	/*
-	 * int size = 8; int[][] board = new int[size][size]; board[0][3] = 1;
-	 * //preplaced queen // starts at row 0 placeQueen(board, 3, 0, size);
-	 * 
-	 * // prints out 2d array for visual aid for (int i = 0; i < size; i++) { for
-	 * (int j = 0; j < size; j++) { System.out.print(board[i][j] + " "); }
-	 * System.out.println(); }
-	 */
-	// close files
 
+		 
+		// close files
+		// TESTING CORNER
+		//String input = "5 1 5";
+		//System.out.println(findSolution(5, 1, 5));
+	
 }
+
