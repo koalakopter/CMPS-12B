@@ -1,0 +1,19 @@
+Julian To
+CruzID: jcto
+Student ID: 1585002
+CMPS 12B
+HW4: It's not that BARD (LOL XD)
+Looked for help online mainly about the built in Java libraries for Hashtables, using GeeksforGeeks extensively to review functions like get, keySet() and other functions. Also reviewed the compareTo function to sort strings and the .equals() function to sort equality, mostly from random sources on stack overflow. Also got some ideas from a random guy while waiting for office hours about how to not use a double for loop to count frequency.
+
+FILES PROVIDED:
+Word.java
+Bard.java
+Makefile
+README
+test-input.txt
+test-output.txt
+
+TO RUN:
+type "make"
+run the command "java -jar Bard.jar <input file> <output file>"
+where input file consists of strings of two numbers, the first number being the length of the desired string, and the second number being the ranking of frequencies of that string, with the most common being zero. Also, a file called "shakespeare.txt" should be included in the same directory, else the code won't work". Thanks for reading!
